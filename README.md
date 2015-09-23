@@ -6,3 +6,9 @@ osallistujat 4kpl
 	Anton Raiha
 	Maija Lantta
 	Matti Lehto
+
+
+sprint 1 goal:
+
+	-lisää book tyylisen lähteen ilman ääkkösiä
+	-luo bibtexin kaikista lisätyistä lähteistä
