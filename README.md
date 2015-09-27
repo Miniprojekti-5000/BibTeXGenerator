@@ -3,7 +3,7 @@
 osallistujat 4kpl
 
 	Henri Vaara
-	Anton Raiha
+	Anton Räihä
 	Maija Lantta
 	Matti Lehto
 
