@@ -12,3 +12,7 @@ sprint 1 goal:
 
 	-lisää book tyylisen lähteen ilman ääkkösiä
 	-luo bibtexin kaikista lisätyistä lähteistä
+
+
+Linkit:
+* [Ajantasainen versio CI-palvelimella](http://ohtu.jamo.io/view/s2015-ohtu-miniprojektit/job/Miniprojekti-5000/)
