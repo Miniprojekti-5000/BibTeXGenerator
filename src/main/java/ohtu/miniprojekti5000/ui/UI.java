@@ -49,11 +49,26 @@ public class UI {
                 references.add(bookReference);
 
                 System.out.println("");
+                System.out.println("");
                 System.out.println("Entry added!");
 
-                System.out.println("Choose: 1) Add another entry 2) Get all entries in Bibtex-format");
+                boolean invalidSelection = true;
 
-                if(user_input.next().equals("2")) addNewEntry = false;
+                while(invalidSelection) {
+                    System.out.println("Choose: 1) Add another entry 2) Get all entries in Bibtex-format");
+                    System.out.println("");
+
+                    System.out.print("Make your selection and hit ENTER: ");
+
+                    String input = user_input.next();
+
+                    if (input.equals("1")) {
+                        invalidSelection = false;
+                    } else if(input.equals("2")) {
+                        addNewEntry = false;
+                        invalidSelection = false;
+                    }
+                }
             } else {
                 System.out.println("Invalid selection.");
                 System.out.println("");
@@ -62,6 +77,7 @@ public class UI {
 
         System.out.println("");
         System.out.println("Generated BibTeX:");
+        System.out.println("");
 
         for(ReferenceInterface reference : references.getAll()) {
             System.out.println(reference);
