@@ -26,6 +26,7 @@ public class BookReference implements ReferenceInterface {
         this.year = year;
     }
 
+    @Override
     public String toString() {
         return "@Book{" + heading + ",\n"
                 + "    author = \"" + author + "\",\n"
