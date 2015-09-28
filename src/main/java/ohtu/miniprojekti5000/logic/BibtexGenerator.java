@@ -6,10 +6,10 @@ package ohtu.miniprojekti5000.logic;
  */
 public class BibtexGenerator
 {
-    public BookBibtex create_new_book_bibtex(String heading, String author, String title, String publisher, short year)
+    public BookReference create_new_book_bibtex(String heading, String author, String title, String publisher, short year)
     {
         // check here that values are valid. Must be implemented before wendsday. <------------------------------------------------------ todo here.
         
-        return new BookBibtex(heading, author, title, publisher, year);
+        return new BookReference(heading, author, title, publisher, year);
     }
 }

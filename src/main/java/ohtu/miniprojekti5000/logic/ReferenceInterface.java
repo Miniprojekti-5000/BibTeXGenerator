@@ -4,7 +4,7 @@ package ohtu.miniprojekti5000.logic;
  * Not implemented yet, should contain all necessary methods.
  * @author miniprojekti-5000
  */
-public interface BibtexInterface
+public interface ReferenceInterface
 {
-    // get_hearer_line() etc..
+    String toString();
 }
