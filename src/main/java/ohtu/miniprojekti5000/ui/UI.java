@@ -6,11 +6,6 @@ import ohtu.miniprojekti5000.logic.References;
 
 import java.util.Scanner;
 
-/**
- * Created by avrj on 28.9.2015.
- */
-
-
 public class UI {
     private References references;
 
@@ -67,5 +62,10 @@ public class UI {
 
         System.out.println("");
         System.out.println("Generated BibTeX:");
+
+        for(ReferenceInterface reference : references.getAll()) {
+            System.out.println(reference);
+            System.out.println("");
+        }
     }
 }
