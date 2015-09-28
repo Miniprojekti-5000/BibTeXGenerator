@@ -10,13 +10,9 @@ public class UI {
     
     
     private References references;
-    //private Scanner user_input;
-    private int user_interface_state;
 
     public UI(References references) {
         this.references = references;
-        //user_input = new Scanner(System.in);
-        user_interface_state = 0;
     }
     
     public void run(int user_interface_state) {
@@ -26,15 +22,17 @@ public class UI {
         {
             case 0 : // asks for what to do.
             {
-                user_interface_state = askWhatToDo(scanner);
                 
+                user_interface_state = askWhatToDo(scanner);
             } break;
                 
             case 1 : // asks book type inputs
             {
+                System.out.println(show_selection(user_interface_state));
                 askBookTypeInputs(scanner);
                 user_interface_state = 0;
             } break;
+                
             case 2 : // prints bibtex
             {
                 printBibtexs();
@@ -58,7 +56,6 @@ public class UI {
     
     private void askBookTypeInputs(Scanner scanner)
     {
-        System.out.println(show_selection(user_interface_state));
         String heading = headingInquiry(scanner);
         String author = authorInquiry(scanner);
         String title = titleInquiry(scanner);
@@ -77,7 +74,7 @@ public class UI {
     
     private void printBibtexs()
     {
-        System.out.println("Generated bibtex");
+        System.out.println("\nGenerated bibtex:");
         for (ReferenceInterface reference : references.getAll())
         {
             System.out.println(reference.toString());
