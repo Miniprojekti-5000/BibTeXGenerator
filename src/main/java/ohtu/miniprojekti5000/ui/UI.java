@@ -74,7 +74,16 @@ public class UI {
         return user_input.nextLine();
     }
     
-    
+    private boolean inputValidator(int input)
+    {
+        switch (input)
+        {
+            case 0 : return false;
+            case 1 : return true;
+            case 2 : return true;
+        }
+        return false;
+    }
     
 
     public void run(int user_interface_state) {
@@ -85,7 +94,13 @@ public class UI {
             case 0 : // asks for what to do.
             {
                 printChoices();
-                user_interface_state = selectionInquiry(scanner);
+                int input = selectionInquiry(scanner);
+                while (!inputValidator(input))
+                {
+                    printChoices();
+                    input = selectionInquiry(scanner);
+                }
+                user_interface_state = input;
             } break;
                 
             case 1 : // asks book type inputs
