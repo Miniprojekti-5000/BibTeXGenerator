@@ -8,8 +8,7 @@ package ohtu.miniprojekti5000.logic;
  */
 public class BookReference implements ReferenceInterface {
 
-    private String heading, author, title, publisher;
-    private String year;
+    private String heading, author, title, publisher, year;
 
     public BookReference() {
     }
