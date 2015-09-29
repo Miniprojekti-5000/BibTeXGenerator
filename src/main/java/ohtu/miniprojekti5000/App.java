@@ -15,6 +15,6 @@ public class App
 
         UI ui = new UI(references);
 
-        ui.run(0);
+        ui.run2((byte)0);
     }
 }
