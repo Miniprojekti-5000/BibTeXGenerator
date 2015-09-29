@@ -1,10 +1,16 @@
 package ohtu.miniprojekti5000.logic;
 
 public class BookReference implements ReferenceInterface {
-    private String heading = "", author = "", title = "", publisher = "", year = "";
+    public String heading = "", author = "", title = "", publisher = "", year = "";
 
     public BookReference() {
     }
+
+    public String getHeading() { return heading; }
+    public String getAuthor() { return author; }
+    public String getTitle() { return title; }
+    public String getPublisher() { return publisher; }
+    public String getYear() { return year; }
 
     public void setHeading(String heading) {
         this.heading = heading;
