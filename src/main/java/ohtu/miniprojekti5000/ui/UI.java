@@ -1,5 +1,7 @@
 package ohtu.miniprojekti5000.ui;
 
+import java.util.ArrayList;
+import java.util.List;
 import ohtu.miniprojekti5000.logic.BookReference;
 import ohtu.miniprojekti5000.logic.ReferenceInterface;
 import ohtu.miniprojekti5000.logic.References;
@@ -10,137 +12,129 @@ public class UI {
     
     
     private References references;
+    private UserInput u_input;
 
     public UI(References references) {
+        u_input = new UserInput();
         this.references = references;
     }
     
-    public void run(int user_interface_state) {
-        Scanner scanner = new Scanner(System.in);
+    public void run2(byte ui_state)
+    {
+        print_available_commands(ui_state);
+        process_user_input(ui_state);
+    }
+    
+    
+    
+    
+    public void print_available_commands(byte ui_state)
+    {
+        switch (ui_state)
+        {
+            case 0 : // print: "add book"
+            {
+                System.out.println("available commands: add book");
+            } break;
+            case 1 : // print: "add book, make bibtex"
+            {
+                System.out.println("available commands: add book, make bibtex");
+            } break;
+        }
+    }
+    
+    public void print_all_bibtexs()
+    {
+        for (ReferenceInterface ref : references.getAll())
+        {
+            System.out.println(ref.toString());
+        }
+    }
+    
+    ArrayList<String> available_commands = new ArrayList<String>();
+    public void process_user_input(byte ui_state)
+    {
+        available_commands = new ArrayList<String>();
         
-        switch(user_interface_state)
+        // commands index:
+        // 0: add book
+        // 1: make bibtex
+        
+        switch (ui_state)
         {
-            case 0 : // asks for what to do.
+            case 0 :  // add all available commands to list and ask user input
+            {
+                available_commands.add("add book");
+                if (u_input.ask_input(1)) process_oneline_command();
+                else run2(ui_state);
+            } break;
+            case 1 : // add all available commands to list
+            {
+                available_commands.add("add book");
+                available_commands.add("make bibtex");
+                if (u_input.ask_input(1)) process_oneline_command();
+                else run2(ui_state);
+            } break;
+            case 2 :
             {
                 
-                user_interface_state = askWhatToDo(scanner);
-            } break;
-                
-            case 1 : // asks book type inputs
+            }
+        }
+    }
+    
+    public void process_oneline_command()
+    {
+        int command = -1;
+        if (available_commands.contains(u_input.getUserInput()[0])) // if "valid command"
+        {
+            for (int i = 0; i < available_commands.size(); i++)
             {
-                System.out.println(show_selection(user_interface_state));
-                askBookTypeInputs(scanner);
-                user_interface_state = 0;
-            } break;
-                
-            case 2 : // prints bibtex
-            {
-                printBibtexs();
-                user_interface_state = 0;
-            } break;
+                if (available_commands.get(i).matches(
+                        u_input.getUserInput()[0])) command = i;
+            }
         }
         
-        run(user_interface_state);
-    }
-    private int askWhatToDo(Scanner scanner)
-    {
-        printChoices();
-        int input = selectionInquiry(scanner);
-        while (!inputValidator(input))
+        switch (command)
         {
-            printChoices();
-            input = selectionInquiry(scanner);
-        }
-        return input;
-    }
-    
-    private void askBookTypeInputs(Scanner scanner)
-    {
-        String heading = headingInquiry(scanner);
-        String author = authorInquiry(scanner);
-        String title = titleInquiry(scanner);
-        String publisher = publisherInquiry(scanner);
-        String year = yearInquiry(scanner);
-                
-        BookReference bookreference = new BookReference();
-        bookreference.setHeading(heading);
-        bookreference.setAuthor(author);
-        bookreference.setTitle(title);
-        bookreference.setPublisher(publisher);
-        bookreference.setYear(year);
-        references.add(bookreference);
-    }
-    
-    
-    private void printBibtexs()
-    {
-        System.out.println("\nGenerated bibtex:");
-        for (ReferenceInterface reference : references.getAll())
-        {
-            System.out.println(reference.toString());
-            System.out.println("");
+            case -1 : // not valid command
+            {
+                run2((byte)0);
+            }
+            case 0 : // add book
+            {
+                ask_book_type_infos();
+            } break;
+            case 1 : // make bibtex
+            {
+                make_bibtexs();
+            } break;
         }
     }
-    
-    private void printChoices()
+
+    public void ask_book_type_infos()
     {
-        System.out.println("select one and hit ENTER:\n");
-        if (references.getAll().size() == 0) // references cannot be printed
+        System.out.println("please enter: header, author, title, publisher and year. hit Enter between every line");
+        if (u_input.ask_input(5))
         {
-            System.out.println("1) add book");
-        } else
+            BookReference bookreference = new BookReference();
+            bookreference.setHeading(u_input.getUserInput()[0]);
+            bookreference.setAuthor(u_input.getUserInput()[1]);
+            bookreference.setTitle(u_input.getUserInput()[2]);
+            bookreference.setPublisher(u_input.getUserInput()[3]);
+            bookreference.setYear(u_input.getUserInput()[4]);
+            references.add(bookreference);
+        
+            run2((byte)1);
+        } else run2((byte) 0);
+    }
+    public void make_bibtexs()
+    {
+        for (ReferenceInterface ref : references.getAll())
         {
-            System.out.println("1) add book");
-            System.out.println("2) create bibtex from all entries");
+            System.out.println(ref.toString());
         }
-    }
-    
-    private String show_selection(int selection)
-    {
-        switch (selection)
-        {
-            case 1 : return "\"Book\" type selected\n";
-        }
-        return "selection not valid";
-    }
-    private int selectionInquiry(Scanner user_input)
-    {
-        return user_input.nextInt();
-    }
-    
-    private String headingInquiry(Scanner user_input)
-    {
-        System.out.println("Heading:");
-        return user_input.nextLine();
-    }
-    private String authorInquiry(Scanner user_input)
-    {
-        System.out.println("Author:");
-        return user_input.nextLine();
-    }
-    private String titleInquiry(Scanner user_input)
-    {
-        System.out.println("Title:");
-        return user_input.nextLine();
-    }
-    private String publisherInquiry(Scanner user_input)
-    {
-        System.out.println("Publisher:");
-        return user_input.nextLine();
-    }
-    private String yearInquiry(Scanner user_input)
-    {
-        System.out.println("Year:");
-        return user_input.nextLine();
-    }
-    private boolean inputValidator(int input)
-    {
-        switch (input)
-        {
-            case 0 : return false;
-            case 1 : return true;
-            case 2 : return true;
-        }
-        return false;
+        
+        if (references.getAll().size() == 0) run2((byte) 0);
+        else run2((byte) 1);
     }
 }
