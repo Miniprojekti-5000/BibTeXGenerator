@@ -25,6 +25,7 @@ public class IO {
         if (hasReferences) {
             System.out.println("2) Make bibtex");
         }
+        System.out.println("3) Quit");
     }
 
     public int getCommand() {
@@ -50,5 +51,9 @@ public class IO {
         book.setYear(scanner.nextLine());
 
         return book;
+    }
+
+    public void printBookAdded() {
+        System.out.println("Book was succesfully added.\n");
     }
 }

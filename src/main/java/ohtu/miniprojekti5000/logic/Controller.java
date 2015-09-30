@@ -6,6 +6,7 @@ import java.util.List;
 import ohtu.miniprojekti5000.domain.ReferenceInterface;
 
 public class Controller {
+
     private final IO io;
     private List<ReferenceInterface> references;
 
@@ -13,16 +14,23 @@ public class Controller {
         this.io = io;
         this.references = new ArrayList<>();
     }
-    
+
     public void start() {
-        boolean hasReferences = !references.isEmpty();
-        io.printAvailableCommands(hasReferences);
-        int command = io.getCommand();
-        
-        if (command == 1) {
-            io.readBook();
-        } else if (command == 2) {
-            makeBibtex();
+        boolean isOn = true;
+
+        while (isOn) {
+            io.printAvailableCommands(!references.isEmpty());
+            int command = io.getCommand();
+
+            if (command == 1) {
+                ReferenceInterface book = io.readBook();
+                references.add(book);
+                io.printBookAdded();
+            } else if (command == 2) {
+                makeBibtex();
+            } else if (command == 3) {
+                isOn = false;
+            }
         }
     }
 
