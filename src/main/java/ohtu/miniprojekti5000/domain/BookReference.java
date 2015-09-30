@@ -6,6 +6,14 @@ public class BookReference implements ReferenceInterface {
     public BookReference() {
     }
 
+    public BookReference(String heading, String author, String title, String publisher, String year) {
+        this.heading = heading;
+        this.author = author;
+        this.title = title;
+        this.publisher = publisher;
+        this.year = year;
+    }
+
     public String getHeading() { return heading; }
     public String getAuthor() { return author; }
     public String getTitle() { return title; }
