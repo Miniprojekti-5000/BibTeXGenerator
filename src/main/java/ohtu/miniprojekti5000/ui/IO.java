@@ -49,6 +49,7 @@ public class IO {
         
         System.out.print("Year: ");
         book.setYear(scanner.nextLine());
+        System.out.println("");
 
         return book;
     }
