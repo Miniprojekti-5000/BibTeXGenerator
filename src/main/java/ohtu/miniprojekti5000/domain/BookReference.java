@@ -1,4 +1,4 @@
-package ohtu.miniprojekti5000.logic;
+package ohtu.miniprojekti5000.domain;
 
 public class BookReference implements ReferenceInterface {
     public String heading = "", author = "", title = "", publisher = "", year = "";

@@ -1,5 +1,6 @@
-package ohtu.miniprojekti5000.logic;
+package ohtu.miniprojekti5000.domain;
 
+import ohtu.miniprojekti5000.domain.ReferenceInterface;
 import java.util.ArrayList;
 
 public class References

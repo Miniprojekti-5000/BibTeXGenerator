@@ -1,5 +1,6 @@
-package ohtu.miniprojekti5000.logic;
+package ohtu.miniprojekti5000.domain;
 
+import ohtu.miniprojekti5000.domain.BookReference;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
