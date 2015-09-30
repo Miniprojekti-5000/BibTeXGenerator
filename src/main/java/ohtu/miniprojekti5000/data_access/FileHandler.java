@@ -1,4 +1,4 @@
-package data_access;
+package ohtu.miniprojekti5000.data_access;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
