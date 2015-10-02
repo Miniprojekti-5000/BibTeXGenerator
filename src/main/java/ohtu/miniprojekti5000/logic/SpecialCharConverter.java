@@ -21,7 +21,8 @@ public class SpecialCharConverter {
             String replaceFrom = keySetIterator.next();
             String replaceTo = replacer.get(replaceFrom);
 
-            str = str.replace(replaceFrom, replaceTo);
+            str = str.replace(replaceFrom.toUpperCase(), replaceTo.toUpperCase())
+                     .replace(replaceFrom.toLowerCase(), replaceTo.toLowerCase());
         }
 
         return str;

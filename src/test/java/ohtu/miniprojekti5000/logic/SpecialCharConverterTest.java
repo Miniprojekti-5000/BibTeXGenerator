@@ -5,9 +5,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by avrj on 2.10.2015.
- */
 public class SpecialCharConverterTest {
     private SpecialCharConverter specialCharConverter;
 
@@ -18,11 +15,11 @@ public class SpecialCharConverterTest {
 
     @Test
     public void singleSpecialCharIsConvertedToBibTeXFormat() {
-        specialCharConverter.addReplace("ä", "{\\\\\"a}");
+        specialCharConverter.addReplace("ä", "{\\\"a}");
 
-        String test_str = "abcdefghijklmnopqrstuvwxyzåäö";
+        String test_str = "abcdefghijklmnopqÄrstuvwxyzåäö";
 
-        assertEquals("abcdefghijklmnopqrstuvwxyzå{\\\\\"a}ö", specialCharConverter.convertSpecialChars(test_str));
+        assertEquals("abcdefghijklmnopq{\\\"A}rstuvwxyzå{\\\"a}ö", specialCharConverter.convertSpecialChars(test_str));
     }
 
     @Test
@@ -31,8 +28,8 @@ public class SpecialCharConverterTest {
         specialCharConverter.addReplace("ö", "{\\\"o}");
         specialCharConverter.addReplace("å", "{\\a}");
 
-        String test_str = "abcdefghijklmnopqrstuvwxyzåäö";
+        String test_str = "abcdefghijklÖmnÄopqÅrstuvwxyzåäö";
 
-        assertEquals("abcdefghijklmnopqrstuvwxyz{\\a}{\\\"a}{\\\"o}", specialCharConverter.convertSpecialChars(test_str));
+        assertEquals("abcdefghijkl{\\\"O}mn{\\\"A}opq{\\A}rstuvwxyz{\\a}{\\\"a}{\\\"o}", specialCharConverter.convertSpecialChars(test_str));
     }
 }
