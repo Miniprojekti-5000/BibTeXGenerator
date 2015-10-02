@@ -83,11 +83,7 @@ public class IO {
         return article;
     }
 
-    public void printArticleAdded() {
-        System.out.println("Article was succesfully added.\n");
-    }
-
-    public void printBookAdded() {
-        System.out.println("Book was succesfully added.\n");
+    public void printAdded(String type) {
+        System.out.println(type + " was succesfully added.\n");
     }
 }

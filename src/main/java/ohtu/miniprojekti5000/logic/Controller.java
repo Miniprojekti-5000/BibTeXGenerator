@@ -25,11 +25,11 @@ public class Controller {
             if (command == 1) {
                 ReferenceInterface book = io.readBook();
                 references.add(book);
-                io.printBookAdded();
+                io.printAdded("Book");
             } else if (command == 2) {
                 ReferenceInterface article = io.readArticle();
                 references.add(article);
-                io.printArticleAdded();
+                io.printAdded("Article");
             } if (command == 3) {
                 makeBibtex();
             } else if (command == 4) {
