@@ -12,7 +12,7 @@ public class Controller {
 
     public Controller(IO io) {
         this.io = io;
-        this.references = new ArrayList<>();
+        this.references = new ArrayList<ReferenceInterface>();
     }
 
     public void start() {
@@ -27,8 +27,12 @@ public class Controller {
                 references.add(book);
                 io.printBookAdded();
             } else if (command == 2) {
+                ReferenceInterface article = io.readArticle();
+                references.add(article);
+                io.printArticleAdded();
+            } if (command == 3) {
                 makeBibtex();
-            } else if (command == 3) {
+            } else if (command == 4) {
                 isOn = false;
             }
         }

@@ -1,6 +1,6 @@
 package ohtu.miniprojekti5000.domain;
 
-public class ArticleReference {
+public class ArticleReference implements ReferenceInterface  {
     public String heading = "", author = "", title = "", journal = "", year = "", volume =  "";
 
     public ArticleReference() {
@@ -48,7 +48,7 @@ public class ArticleReference {
 
     @Override
     public String toString() {
-        return "@Book{" + heading + ",\n"
+        return "@Article{" + heading + ",\n"
                 + "    author = \"" + author + "\",\n"
                 + "    title = \"" + title + "\",\n"
                 + "    journal = \"" + journal + "\",\n"

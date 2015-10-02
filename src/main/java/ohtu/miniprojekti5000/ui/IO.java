@@ -2,6 +2,8 @@ package ohtu.miniprojekti5000.ui;
 
 import java.util.List;
 import java.util.Scanner;
+
+import ohtu.miniprojekti5000.domain.ArticleReference;
 import ohtu.miniprojekti5000.domain.BookReference;
 import ohtu.miniprojekti5000.domain.ReferenceInterface;
 
@@ -21,11 +23,12 @@ public class IO {
 
     public void printAvailableCommands(boolean hasReferences) {
         System.out.println("1) Add book");
+        System.out.println("2) Add article");
 
         if (hasReferences) {
-            System.out.println("2) Make bibtex");
+            System.out.println("3) Make bibtex");
         }
-        System.out.println("3) Quit");
+        System.out.println("4) Quit");
     }
 
     public int getCommand() {
@@ -52,6 +55,36 @@ public class IO {
         System.out.println("");
 
         return book;
+    }
+
+    public ArticleReference readArticle() {
+        ArticleReference article = new ArticleReference();
+
+        System.out.print("Header: ");
+        article.setHeading(scanner.nextLine());
+
+        System.out.print("Author: ");
+        article.setAuthor(scanner.nextLine());
+
+        System.out.print("Title: ");
+        article.setTitle(scanner.nextLine());
+
+        System.out.print("Journal: ");
+        article.setJournal(scanner.nextLine());
+
+        System.out.print("Year: ");
+        article.setYear(scanner.nextLine());
+
+        System.out.print("Volume: ");
+        article.setVolume(scanner.nextLine());
+
+        System.out.println("");
+
+        return article;
+    }
+
+    public void printArticleAdded() {
+        System.out.println("Article was succesfully added.\n");
     }
 
     public void printBookAdded() {
