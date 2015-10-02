@@ -7,7 +7,7 @@ public class SpecialCharConverter {
     private HashMap<String, String> replacer;
 
     public SpecialCharConverter() {
-        replacer = new HashMap<String, String>();
+        replacer = new HashMap<>();
     }
 
     public void addReplace(String replaceFrom, String replaceTo) {
