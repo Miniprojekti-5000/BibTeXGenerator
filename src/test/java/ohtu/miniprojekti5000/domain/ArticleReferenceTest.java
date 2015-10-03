@@ -25,7 +25,6 @@ public class ArticleReferenceTest {
     public void headingIsGet() {
         String heading = "heading";
 
-        reference.setHeading(heading);
         assertEquals(heading, reference.getHeading());
     }
 
@@ -41,7 +40,6 @@ public class ArticleReferenceTest {
     public void authorIsGet() {
         String author = "author";
 
-        reference.setAuthor(author);
         assertEquals(author, reference.getAuthor());
     }
 
@@ -57,7 +55,6 @@ public class ArticleReferenceTest {
     public void titleIsGet() {
         String title = "title";
 
-        reference.setTitle(title);
         assertEquals(title, reference.getTitle());
     }
 
@@ -73,7 +70,6 @@ public class ArticleReferenceTest {
     public void journalIsGet() {
         String journal = "journal";
 
-        reference.setJournal(journal);
         assertEquals(journal, reference.getJournal());
     }
 
@@ -89,7 +85,6 @@ public class ArticleReferenceTest {
     public void yearIsGet() {
         String year = "year";
 
-        reference.setYear(year);
         assertEquals(year, reference.getYear());
     }
 
@@ -105,7 +100,6 @@ public class ArticleReferenceTest {
     public void volumeIsGet() {
         String volume = "volume";
 
-        reference.setVolume(volume);
         assertEquals(volume, reference.getVolume());
     }
 
