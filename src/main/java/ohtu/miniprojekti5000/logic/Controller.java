@@ -15,6 +15,16 @@ public class Controller {
         this.references = new ArrayList<ReferenceInterface>();
     }
 
+    public boolean headingExists(String heading) {
+        for (ReferenceInterface ref : references) {
+            if(ref.getHeading().equals(heading)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void start() {
         boolean isOn = true;
 
@@ -24,10 +34,21 @@ public class Controller {
 
             if (command == 1) {
                 ReferenceInterface book = io.readBook();
+
+                while(headingExists(book.getHeading())) {
+                    io.printHeadingAlreadyExists(book.getHeading());
+                    book = io.readBook();
+                }
+
                 references.add(book);
                 io.printAdded("Book");
             } else if (command == 2) {
                 ReferenceInterface article = io.readArticle();
+
+                while(headingExists(article.getHeading())) {
+                    io.printHeadingAlreadyExists(article.getHeading());
+                }
+
                 references.add(article);
                 io.printAdded("Article");
             } if (command == 3) {

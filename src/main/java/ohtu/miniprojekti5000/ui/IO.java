@@ -86,4 +86,9 @@ public class IO {
     public void printAdded(String type) {
         System.out.println(type + " was succesfully added.\n");
     }
+
+    public void printHeadingAlreadyExists(String heading) {
+        System.out.println("Heading \"" + heading + "\" already exists. Choose another.");
+        System.out.println("");
+    }
 }
