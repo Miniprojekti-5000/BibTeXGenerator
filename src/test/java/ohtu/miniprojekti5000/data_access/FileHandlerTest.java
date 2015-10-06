@@ -6,6 +6,8 @@ import ohtu.miniprojekti5000.logic.SpecialCharConverter;
 import org.junit.*;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 
 import static org.junit.Assert.*;
@@ -47,6 +49,7 @@ public class FileHandlerTest {
 
     @Test
     public void gettingContentOfFileThatIsNotDefinedReturnsNull() {
+        fileHandler = new FileHandler();
         assertNull(fileHandler.getContent());
     }
 
@@ -58,11 +61,47 @@ public class FileHandlerTest {
     }
 
     @Test
+    public void writingToFileWithoutPathReturnsFalse() {
+        ReferenceInterface book = new BookReference("heading", "author", "title", "publisher", "year");
+
+        assertFalse(fileHandler.appendFile("", book.toString(new SpecialCharConverter())));
+    }
+
+    @Test
     public void writingToFileThatDoesntExistReallyWritesToFile() {
         ReferenceInterface book = new BookReference("heading", "author", "title", "publisher", "year");
 
         fileHandler.appendFile(filename, book.toString(new SpecialCharConverter()));
 
         assertNotNull(fileHandler.getContent());
+    }
+
+    @Test
+    public void loadingFileThatExistsReturnsTrue() {
+        if(!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        assertTrue(fileHandler.loadFile(filename));
+    }
+
+    @Test
+    public void gettingContentsOfExistingFileReturnsTheContents() {
+        fileHandler = new FileHandler();
+
+        try
+        {
+            FileWriter filewriter = new FileWriter(filename, true);
+            filewriter.write("test");
+            filewriter.close();
+        } catch (IOException ex) {}
+
+        fileHandler.loadFile(filename);
+
+        assertEquals("test\n", fileHandler.getContent());
     }
 }
