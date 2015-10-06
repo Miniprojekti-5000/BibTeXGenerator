@@ -1,16 +1,16 @@
 package ohtu.miniprojekti5000.logic;
 
 import ohtu.miniprojekti5000.data_access.FileHandler;
-import ohtu.miniprojekti5000.ui.IO;
+import ohtu.miniprojekti5000.ui.ConsoleIO;
 import java.util.ArrayList;
 import java.util.List;
 import ohtu.miniprojekti5000.domain.ReferenceInterface;
 
 public class Controller {
-    private final IO io;
+    private final ConsoleIO io;
     private List<ReferenceInterface> references;
 
-    public Controller(IO io) {
+    public Controller(ConsoleIO io) {
         this.io = io;
         io.askFileName();
         this.references = io.fileHandler.parseFile();
