@@ -48,12 +48,6 @@ public class FileHandlerTest {
     }
 
     @Test
-    public void gettingContentOfFileThatIsNotDefinedReturnsNull() {
-        fileHandler = new FileHandler();
-        assertNull(fileHandler.getContent());
-    }
-
-    @Test
     public void writingToFileThatDoesntExistReturnsTrue() {
         ReferenceInterface book = new BookReference("heading", "author", "title", "publisher", "year");
 
@@ -68,15 +62,6 @@ public class FileHandlerTest {
     }
 
     @Test
-    public void writingToFileThatDoesntExistReallyWritesToFile() {
-        ReferenceInterface book = new BookReference("heading", "author", "title", "publisher", "year");
-
-        fileHandler.appendFile(filename, book.toString(new SpecialCharConverter()));
-
-        assertNotNull(fileHandler.getContent());
-    }
-
-    @Test
     public void loadingFileThatExistsReturnsTrue() {
         if(!file.exists()) {
             try {
@@ -87,21 +72,5 @@ public class FileHandlerTest {
         }
 
         assertTrue(fileHandler.loadFile(filename));
-    }
-
-    @Test
-    public void gettingContentsOfExistingFileReturnsTheContents() {
-        fileHandler = new FileHandler();
-
-        try
-        {
-            FileWriter filewriter = new FileWriter(filename, true);
-            filewriter.write("test");
-            filewriter.close();
-        } catch (IOException ex) {}
-
-        fileHandler.loadFile(filename);
-
-        assertEquals("test\n", fileHandler.getContent());
     }
 }

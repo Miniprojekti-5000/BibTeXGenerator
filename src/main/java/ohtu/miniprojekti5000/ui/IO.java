@@ -12,7 +12,7 @@ import ohtu.miniprojekti5000.logic.SpecialCharConverter;
 public class IO {
     public final SpecialCharConverter specialCharConverter;
     private final Scanner scanner;
-    private final FileHandler fileHandler;
+    public final FileHandler fileHandler;
     private String filename;
 
     public IO() {
@@ -28,6 +28,31 @@ public class IO {
 
         scanner = new Scanner(System.in);
     }
+    
+    public void askFileName()
+    {
+        System.out.println("enter file name: (if doesnt exist creates a new blank file)");
+        String user_entered_filename = scanner.nextLine();
+        
+        if (!user_entered_filename.endsWith(".bib"))
+        {
+            System.out.println("[ ERROR ] invalid filename, must be in form *.bib");
+            askFileName();
+        } else
+        {
+            filename = user_entered_filename;
+            if (fileHandler.loadFile(user_entered_filename))
+            {
+                System.out.println(filename+" was opened successfully.");
+            } else
+            {
+                System.out.println("new file was created.");
+            }
+            fileHandler.parseFile();
+        }
+        
+    }
+    
 
     public void printReferences(List<ReferenceInterface> references) {
         for (ReferenceInterface ref : references) {
@@ -110,11 +135,11 @@ public class IO {
         fileHandler.appendFile(filename, reference.toString(specialCharConverter));
     }
 
-    public void printReferencesFromFile() {
-        System.out.println("All references saved to " + filename);
-        System.out.println("");
-        System.out.println("Generated BibTeX:");
-        System.out.println("");
-        System.out.println(fileHandler.getContent());
-    }
+//    public void printReferencesFromFile() {
+//        System.out.println("All references saved to " + filename);
+//        System.out.println("");
+//        System.out.println("Generated BibTeX:");
+//        System.out.println("");
+//        System.out.println(fileHandler.getContent());
+//    }
 }

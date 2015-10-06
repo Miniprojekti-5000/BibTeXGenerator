@@ -12,7 +12,8 @@ public class Controller {
 
     public Controller(IO io) {
         this.io = io;
-        this.references = new ArrayList<ReferenceInterface>();
+        io.askFileName();
+        this.references = io.fileHandler.parseFile();
     }
 
     public boolean headingExists(String heading) {
@@ -64,7 +65,7 @@ public class Controller {
     }
 
     public void makeBibtex() {
-        io.printReferencesFromFile();
-        //io.printReferences(references);
+        //io.printReferencesFromFile();
+        io.printReferences(references);
     }
 }
