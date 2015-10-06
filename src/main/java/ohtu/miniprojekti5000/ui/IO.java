@@ -18,6 +18,7 @@ public class IO {
     public IO() {
         filename = "test.bib";
         fileHandler = new FileHandler();
+        fileHandler.loadFile(filename);
 
         specialCharConverter = new SpecialCharConverter();
 

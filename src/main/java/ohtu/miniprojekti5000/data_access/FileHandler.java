@@ -22,7 +22,7 @@ public class FileHandler
             Scanner filescanner = new Scanner(new FileReader(path));
             while (filescanner.hasNext())
             {
-                bibtex += filescanner.nextLine();
+                bibtex += filescanner.nextLine() + "\n";
             }
             return true;
         } catch (FileNotFoundException ex)
