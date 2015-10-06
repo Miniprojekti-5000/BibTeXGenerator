@@ -1,12 +1,12 @@
 package ohtu.miniprojekti5000.logic;
 
+import ohtu.miniprojekti5000.data_access.FileHandler;
 import ohtu.miniprojekti5000.ui.IO;
 import java.util.ArrayList;
 import java.util.List;
 import ohtu.miniprojekti5000.domain.ReferenceInterface;
 
 public class Controller {
-
     private final IO io;
     private List<ReferenceInterface> references;
 
@@ -40,6 +40,8 @@ public class Controller {
                     book = io.readBook();
                 }
 
+                io.appendFile(book);
+
                 references.add(book);
                 io.printAdded("Book");
             } else if (command == 2) {
@@ -48,6 +50,8 @@ public class Controller {
                 while(headingExists(article.getHeading())) {
                     io.printHeadingAlreadyExists(article.getHeading());
                 }
+
+                io.appendFile(article);
 
                 references.add(article);
                 io.printAdded("Article");
@@ -60,6 +64,7 @@ public class Controller {
     }
 
     public void makeBibtex() {
-        io.printReferences(references);
+        io.printReferencesFromFile();
+        //io.printReferences(references);
     }
 }

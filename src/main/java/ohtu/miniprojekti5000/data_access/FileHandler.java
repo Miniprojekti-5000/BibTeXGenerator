@@ -31,14 +31,14 @@ public class FileHandler
         }
     }
     
-    public boolean appendFile(String path, ReferenceInterface reference)
+    public boolean appendFile(String path, String reference)
     {
         try
         {
             FileWriter filewriter = new FileWriter(path, true);
-            filewriter.write(reference.toString());
+            filewriter.write(reference);
             filewriter.close();
-            bibtex += reference.toString();
+            bibtex += reference;
             return true;
         } catch (IOException ex)
         {

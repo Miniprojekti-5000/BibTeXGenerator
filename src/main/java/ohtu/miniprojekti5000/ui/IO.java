@@ -3,16 +3,22 @@ package ohtu.miniprojekti5000.ui;
 import java.util.List;
 import java.util.Scanner;
 
+import ohtu.miniprojekti5000.data_access.FileHandler;
 import ohtu.miniprojekti5000.domain.ArticleReference;
 import ohtu.miniprojekti5000.domain.BookReference;
 import ohtu.miniprojekti5000.domain.ReferenceInterface;
 import ohtu.miniprojekti5000.logic.SpecialCharConverter;
 
 public class IO {
-    private final SpecialCharConverter specialCharConverter;
+    public final SpecialCharConverter specialCharConverter;
     private final Scanner scanner;
+    private final FileHandler fileHandler;
+    private String filename;
 
     public IO() {
+        filename = "test.bib";
+        fileHandler = new FileHandler();
+
         specialCharConverter = new SpecialCharConverter();
 
         specialCharConverter.addReplace("å", "\\a");
@@ -97,5 +103,17 @@ public class IO {
     public void printHeadingAlreadyExists(String heading) {
         System.out.println("Heading \"" + heading + "\" already exists. Choose another.");
         System.out.println("");
+    }
+
+    public void appendFile(ReferenceInterface reference) {
+        fileHandler.appendFile(filename, reference.toString(specialCharConverter));
+    }
+
+    public void printReferencesFromFile() {
+        System.out.println("All references saved to " + filename);
+        System.out.println("");
+        System.out.println("Generated BibTeX:");
+        System.out.println("");
+        System.out.println(fileHandler.getContent());
     }
 }

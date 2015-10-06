@@ -2,6 +2,7 @@ package ohtu.miniprojekti5000.data_access;
 
 import ohtu.miniprojekti5000.domain.BookReference;
 import ohtu.miniprojekti5000.domain.ReferenceInterface;
+import ohtu.miniprojekti5000.logic.SpecialCharConverter;
 import org.junit.*;
 
 import java.io.File;
@@ -53,14 +54,14 @@ public class FileHandlerTest {
     public void writingToFileThatDoesntExistReturnsTrue() {
         ReferenceInterface book = new BookReference("heading", "author", "title", "publisher", "year");
 
-        assertTrue(fileHandler.appendFile(filename, book));
+        assertTrue(fileHandler.appendFile(filename, book.toString(new SpecialCharConverter())));
     }
 
     @Test
     public void writingToFileThatDoesntExistReallyWritesToFile() {
         ReferenceInterface book = new BookReference("heading", "author", "title", "publisher", "year");
 
-        fileHandler.appendFile(filename, book);
+        fileHandler.appendFile(filename, book.toString(new SpecialCharConverter()));
 
         assertNotNull(fileHandler.getContent());
     }
