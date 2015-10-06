@@ -4,18 +4,15 @@
 //
 //description "User can add book -reference"
 //
-//scenario "'adding book -references' succesfull when not using scandic letters", {
+//scenario "'adding book -reference' succesfull when not using scandic letters", {
 //    given 'command add book is given', {
-//        bookReference = new BookReference()
-//        references = new References()
-//        io = new UserInput("A54", "Bilbo B.", "Sinne ja takaisin", "1700", "omatoimi oy")
-//        ui = new UI()
-//        app = new App()
+//        io = new TestIO(1, "Some headr", "Ville Vallaton", "title", "Otawa", "1888", " ", " ")
+//        co = new Controller(io)
 //    }
 //    when 'valid informations are entered', {
-//        ui.run2((byte)0);
+//        co.start();
 //    }
-//    then 'user sees that bibtex is made', {
-//        
+//    then 'user sees confirmationtext "Book was succesfully added."', {
+//        io.getConfirmation().shouldEqual("Book was successfully added.")
 //    }
 //}

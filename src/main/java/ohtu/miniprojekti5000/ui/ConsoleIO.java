@@ -9,7 +9,7 @@ import ohtu.miniprojekti5000.domain.BookReference;
 import ohtu.miniprojekti5000.domain.ReferenceInterface;
 import ohtu.miniprojekti5000.logic.SpecialCharConverter;
 
-public class ConsoleIO {
+public class ConsoleIO implements IO{
     public final SpecialCharConverter specialCharConverter;
     private final Scanner scanner;
     public final FileHandler fileHandler;

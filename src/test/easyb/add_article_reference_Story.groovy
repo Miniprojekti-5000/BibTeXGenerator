@@ -1,29 +1,18 @@
 //import ohtu.miniprojekti5000.*
 //import ohtu.miniprojekti5000.logic.*
-//import ohtu.miniprojekti5000.domain.*
 //import ohtu.miniprojekti5000.ui.*
 //
-//description 'User can add book -reference'
+//description "User can add article -reference"
 //
-//scenario 'user can add an article reference without scandic letters', {
-//    
-////kuinka lukea syöte?
-//
-//    given 'command add article', {
-//        io = new IO()
-//        co = new Controller(IO)
-//        co.start()            
-//        
+//scenario "'adding article -reference' succesfull when not using scandic letters", {
+//    given 'command add book is given', {
+//        io = new TestIO(2, "Some headr", "Ville Vallaton", "title", " ", "1888", "journal", "volume")
+//        co = new Controller(io)
 //    }
-//    
-//    when 'valid information is entered', {
-//        articleReference = new ArticleReference()
-//        articleReference.setHeading(123)
-//        articleReference.setAuthor()
-////...
+//    when 'valid informations are entered', {
+//        co.start();
 //    }
-//    
-//    then 'bibtex is made', {
-//        
+//    then 'user sees confirmationtext "Article was succesfully added."', {
+//        io.getConfirmation().shouldEqual("Article was successfully added.")
 //    }
 //}
