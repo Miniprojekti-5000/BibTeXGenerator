@@ -1,6 +1,7 @@
 package ohtu.miniprojekti5000.domain;
 
 import ohtu.miniprojekti5000.domain.BookReference;
+import ohtu.miniprojekti5000.logic.SpecialCharConverter;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -106,6 +107,6 @@ public class BookReferenceTest {
                 + "    title = \"" + reference.getTitle() + "\",\n"
                 + "    year = \"" + reference.getYear() + "\",\n"
                 + "    publisher = \"" + reference.getPublisher() + "\",\n"
-                + "}\n", reference.toString());
+                + "}\n", reference.toString(new SpecialCharConverter()));
     }
 }

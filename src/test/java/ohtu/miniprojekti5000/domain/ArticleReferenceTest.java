@@ -1,5 +1,6 @@
 package ohtu.miniprojekti5000.domain;
 
+import ohtu.miniprojekti5000.logic.SpecialCharConverter;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -118,6 +119,6 @@ public class ArticleReferenceTest {
                 + "    journal = \"" + reference.getJournal() + "\",\n"
                 + "    year = \"" + reference.getYear() + "\",\n"
                 + "    volume = \"" + reference.getVolume() + "\",\n"
-                + "}\n", reference.toString());
+                + "}\n", reference.toString(new SpecialCharConverter()));
     }
 }

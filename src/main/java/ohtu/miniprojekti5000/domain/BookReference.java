@@ -1,5 +1,7 @@
 package ohtu.miniprojekti5000.domain;
 
+import ohtu.miniprojekti5000.logic.SpecialCharConverter;
+
 public class BookReference implements ReferenceInterface {
     public String heading = "", author = "", title = "", publisher = "", year = "";
 
@@ -41,12 +43,12 @@ public class BookReference implements ReferenceInterface {
     }
 
     @Override
-    public String toString() {
-        return "@Book{" + heading + ",\n"
-                + "    author = \"" + author + "\",\n"
-                + "    title = \"" + title + "\",\n"
-                + "    year = \"" + year + "\",\n"
-                + "    publisher = \"" + publisher + "\",\n"
+    public String toString(SpecialCharConverter specialCharConverter) {
+        return "@Book{" + specialCharConverter.convertSpecialChars(heading) + ",\n"
+                + "    author = \"" + specialCharConverter.convertSpecialChars(author) + "\",\n"
+                + "    title = \"" + specialCharConverter.convertSpecialChars(title) + "\",\n"
+                + "    year = \"" + specialCharConverter.convertSpecialChars(year) + "\",\n"
+                + "    publisher = \"" + specialCharConverter.convertSpecialChars(publisher) + "\",\n"
                 + "}\n";
 
     }

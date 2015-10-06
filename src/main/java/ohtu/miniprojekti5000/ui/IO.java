@@ -6,18 +6,25 @@ import java.util.Scanner;
 import ohtu.miniprojekti5000.domain.ArticleReference;
 import ohtu.miniprojekti5000.domain.BookReference;
 import ohtu.miniprojekti5000.domain.ReferenceInterface;
+import ohtu.miniprojekti5000.logic.SpecialCharConverter;
 
 public class IO {
-
+    private final SpecialCharConverter specialCharConverter;
     private final Scanner scanner;
 
     public IO() {
+        specialCharConverter = new SpecialCharConverter();
+
+        specialCharConverter.addReplace("å", "\\a");
+        specialCharConverter.addReplace("ä", "\\\"a");
+        specialCharConverter.addReplace("ö", "\\\"o");
+
         scanner = new Scanner(System.in);
     }
 
     public void printReferences(List<ReferenceInterface> references) {
         for (ReferenceInterface ref : references) {
-            System.out.println(ref.toString());
+            System.out.println(ref.toString(specialCharConverter));
         }
     }
 

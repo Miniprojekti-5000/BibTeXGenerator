@@ -1,8 +1,9 @@
 package ohtu.miniprojekti5000.domain;
 
+import ohtu.miniprojekti5000.logic.SpecialCharConverter;
+
 public class ArticleReference implements ReferenceInterface  {
     public String heading = "", author = "", title = "", journal = "", year = "", volume =  "";
-
     public ArticleReference() {
     }
 
@@ -47,13 +48,13 @@ public class ArticleReference implements ReferenceInterface  {
     }
 
     @Override
-    public String toString() {
-        return "@Article{" + heading + ",\n"
-                + "    author = \"" + author + "\",\n"
-                + "    title = \"" + title + "\",\n"
-                + "    journal = \"" + journal + "\",\n"
-                + "    year = \"" + year + "\",\n"
-                + "    volume = \"" + volume + "\",\n"
+    public String toString(SpecialCharConverter specialCharConverter) {
+        return "@Article{" + specialCharConverter.convertSpecialChars(heading) + ",\n"
+                + "    author = \"" + specialCharConverter.convertSpecialChars(author) + "\",\n"
+                + "    title = \"" + specialCharConverter.convertSpecialChars(title) + "\",\n"
+                + "    journal = \"" + specialCharConverter.convertSpecialChars(journal) + "\",\n"
+                + "    year = \"" + specialCharConverter.convertSpecialChars(year) + "\",\n"
+                + "    volume = \"" + specialCharConverter.convertSpecialChars(volume) + "\",\n"
                 + "}\n";
 
     }
