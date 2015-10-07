@@ -50,6 +50,7 @@ public class Controller {
 
                 while(headingExists(article.getHeading())) {
                     io.printHeadingAlreadyExists(article.getHeading());
+                    article = io.readArticle();
                 }
 
                 io.appendFile(article);
