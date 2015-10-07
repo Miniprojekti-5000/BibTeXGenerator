@@ -2,3 +2,4 @@ target
 .idea
 *.iml
 *.bib
+nb-configuration.xml
