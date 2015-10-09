@@ -5,8 +5,8 @@ import ohtu.miniprojekti5000.domain.ReferenceInterface;
 import ohtu.miniprojekti5000.ui.ConsoleIO;
 
 /**
- *
- * @author hexvaara
+ * Input validator for different types of inputs
+ * @author miniprojekti5000
  */
 public class InputValidator
 {

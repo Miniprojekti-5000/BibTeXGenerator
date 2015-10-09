@@ -48,7 +48,7 @@ public class Controller {
             else
             {
                 io.printError("failed to give acceptable file name, exiting..");
-                System.exit(1); // exits with failure
+                System.exit(0); // exits with success
             }
         }
         
