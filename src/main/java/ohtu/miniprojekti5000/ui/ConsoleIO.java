@@ -11,7 +11,7 @@ import ohtu.miniprojekti5000.logic.SpecialCharConverter;
 
 public class ConsoleIO implements IO{
     public final SpecialCharConverter specialCharConverter;
-    private final Scanner scanner;
+    private final Scanner scanner; // can be deleted, newest version of ui uses anonymous scanner
     public final FileHandler fileHandler;
     private String filename;
 
@@ -26,13 +26,13 @@ public class ConsoleIO implements IO{
         specialCharConverter.addReplace("ä", "\\\"a");
         specialCharConverter.addReplace("ö", "\\\"o");
 
-        scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in); // can be deleted, newest version of ui uses anonymous scanner
     }
     
     public String askFileName()
     {
         System.out.println("enter file name: (if doesnt exist creates a new blank file)");
-        return scanner.nextLine();
+        return new Scanner(System.in).nextLine();
         
     }
     
@@ -54,13 +54,11 @@ public class ConsoleIO implements IO{
         System.out.println("0) Quit");
     }
 
-    public int getCommand() {
-        return Integer.parseInt(scanner.nextLine());
-    }
+    
     
     public String getInputString()
     {
-        return scanner.nextLine();
+        return new Scanner(System.in).nextLine();
     }
     
     public void printError(String message)
@@ -76,40 +74,40 @@ public class ConsoleIO implements IO{
     public String askHeader()
     {
         System.out.print("Header: ");
-        return scanner.nextLine();
+        return new Scanner(System.in).nextLine();
     }
     
     public String askAuthor()
     {
         System.out.print("Author: ");
-        return scanner.nextLine();
+        return new Scanner(System.in).nextLine();
     }
     
     public String askTitle()
     {
         System.out.print("Title: ");
-        return scanner.nextLine();
+        return new Scanner(System.in).nextLine();
     }
     
     public String askPublisher()
     {
         System.out.print("Publisher: ");
-        return scanner.nextLine();
+        return new Scanner(System.in).nextLine();
     }
     public String askYear()
     {
         System.out.print("Year: ");
-        return scanner.nextLine();
+        return new Scanner(System.in).nextLine();
     }
     public String askJournal()
     {
         System.out.print("Journal: ");
-        return scanner.nextLine();
+        return new Scanner(System.in).nextLine();
     }
     public String askVolume()
     {
         System.out.print("Volume: ");
-        return scanner.nextLine();
+        return new Scanner(System.in).nextLine();
     }
     
 
@@ -195,5 +193,14 @@ public class ConsoleIO implements IO{
      */
     public void appendFile(ReferenceInterface reference) {
         fileHandler.appendFile(filename, reference.toString(specialCharConverter));
+    }
+    
+    /**
+     * not in use anymore with newest UI.
+     * abandoned due crashing program with incorrect input.
+     * @return 
+     */
+    public int getCommand() {
+        return Integer.parseInt(scanner.nextLine());
     }
 }

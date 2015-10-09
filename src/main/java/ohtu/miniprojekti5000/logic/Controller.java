@@ -13,12 +13,21 @@ public class Controller {
     private List<ReferenceInterface> references;
     private final InputValidator ioValidator;
     private final FileHandler filehandler;
+    private String filename;
+    private final SpecialCharConverter specialCharConverter;
 
     public Controller(ConsoleIO io) {
         this.io = io;
         references = new ArrayList<>();
         ioValidator = new InputValidator();
         filehandler = new FileHandler();
+        filename = "test.bib";
+        
+        specialCharConverter = new SpecialCharConverter();
+
+        specialCharConverter.addReplace("å", "\\a");
+        specialCharConverter.addReplace("ä", "\\\"a");
+        specialCharConverter.addReplace("ö", "\\\"o");
     }
     
     /**
@@ -31,7 +40,8 @@ public class Controller {
             Input filename = ioValidator.validateFileName(io.askFileName());
             if (filename.isValid())
             {
-                filehandler.loadFile(filename.getStringValue());
+                this.filename = filename.getStringValue();
+                filehandler.loadFile(this.filename);
                 references = filehandler.parseFile();
                 break;
             } else if (i > 0) io.printError("filename must end with .bib, please try again. "+i+" attempts left");
@@ -176,6 +186,9 @@ public class Controller {
         
         // tähän kysely optionaalisista kentistä ja niiden lisäys
         
+        references.add(ar);
+        filehandler.appendFile(filename, ar.toString(specialCharConverter));
+        
         return true;
     }
     
@@ -264,6 +277,9 @@ public class Controller {
         
         
         // tähän kysely optionaalisista kentistä ja niiden lisäys
+        
+        references.add(br);
+        filehandler.appendFile(filename, br.toString(specialCharConverter));
         
         return true;
     }
