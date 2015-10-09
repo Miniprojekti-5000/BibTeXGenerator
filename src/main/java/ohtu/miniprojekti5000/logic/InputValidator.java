@@ -63,16 +63,33 @@ public class InputValidator
         } else return new Input(value, false);
         
     }
+    /**
+     * checks if user input is not empty
+     * @param input user input
+     * @return Input class, with String value and valid or invalid boolean
+     */
     public Input validateStringInput(String input)
     {
         if (!input.isEmpty()) return new Input(input, true);
         else return new Input(input, false);
     }
+    /**
+     * checks if input is a valid unique header
+     * @param references
+     * @param input
+     * @return Input class, with String value and valid or invalid boolean
+     */
     public Input validateHeaderInput(List<ReferenceInterface> references, String input)
     {
-        if (!input.isEmpty()) return new Input(input, true);
+        if (!input.isEmpty() || !references.contains(input)) return new Input(input, true);
         else return new Input("", false);
     }
+    
+    /**
+     * checks if input is a .bib ending filename
+     * @param input
+     * @return Input class, with String value and valid or invalid boolean
+     */
     public Input validateFileName(String input)
     {
         if (input.endsWith(".bib")) return new Input(input, true);

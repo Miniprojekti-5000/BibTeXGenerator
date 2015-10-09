@@ -45,7 +45,7 @@ public class InputTest
     }
 
     @Test
-    public void testIntegerTypeInput_correct_values()
+    public void testIntegerTypeInput()
     {
         Input i = new Input(1, true);
         assertEquals(i.getStringValue(), "");
@@ -54,14 +54,11 @@ public class InputTest
     }
 
     @Test
-    public void testStringTypeInput_correct_values()
+    public void testStringTypeInput()
     {
         Input i = new Input("asd", true);
         assertEquals(i.getStringValue(), "asd");
         assertEquals(i.getIntegerValue(), Integer.MIN_VALUE);
         assertTrue(i.isValid());
     }
-
-    
-    
 }
