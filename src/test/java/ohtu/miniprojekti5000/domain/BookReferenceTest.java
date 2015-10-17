@@ -35,7 +35,7 @@ public class BookReferenceTest {
         String author = "author";
 
         reference.setAuthor(author);
-        assertEquals(author, reference.author);
+        assertEquals(author, reference.getAuthor());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class BookReferenceTest {
         String title = "title";
 
         reference.setTitle(title);
-        assertEquals(title, reference.title);
+        assertEquals(title, reference.getTitle());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class BookReferenceTest {
         String publisher = "publisher";
 
         reference.setPublisher(publisher);
-        assertEquals(publisher, reference.publisher);
+        assertEquals(publisher, reference.getPublisher());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class BookReferenceTest {
         String year = "year";
 
         reference.setYear(year);
-        assertEquals(year, reference.year);
+        assertEquals(year, reference.getYear());
     }
 
     @Test
@@ -103,10 +103,10 @@ public class BookReferenceTest {
         reference.setYear("year");
 
         assertEquals("@Book{" + reference.getHeading() + ",\n"
-                + "    author = \"" + reference.getAuthor() + "\",\n"
-                + "    title = \"" + reference.getTitle() + "\",\n"
-                + "    year = \"" + reference.getYear() + "\",\n"
-                + "    publisher = \"" + reference.getPublisher() + "\",\n"
+                + "     year = \"" + reference.getYear() + "\",\n"
+                + "     author = \"" + reference.getAuthor() + "\",\n"
+                + "     publisher = \"" + reference.getPublisher() + "\",\n"
+                + "     title = \"" + reference.getTitle() + "\"\n"
                 + "}\n", reference.toString(new SpecialCharConverter()));
     }
 }

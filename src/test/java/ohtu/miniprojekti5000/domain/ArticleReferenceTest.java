@@ -6,7 +6,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ArticleReferenceTest {
-
     private ArticleReference reference;
 
     @Before
@@ -19,7 +18,7 @@ public class ArticleReferenceTest {
         String heading = "newHeading";
 
         reference.setHeading(heading);
-        assertEquals(heading, reference.heading);
+        assertEquals(heading, reference.getHeading());
     }
 
     @Test
@@ -34,7 +33,7 @@ public class ArticleReferenceTest {
         String author = "newAuthor";
 
         reference.setAuthor(author);
-        assertEquals(author, reference.author);
+        assertEquals(author, reference.getAuthor());
     }
 
     @Test
@@ -49,7 +48,7 @@ public class ArticleReferenceTest {
         String title = "newTitle";
 
         reference.setTitle(title);
-        assertEquals(title, reference.title);
+        assertEquals(title, reference.getTitle());
     }
 
     @Test
@@ -64,7 +63,7 @@ public class ArticleReferenceTest {
         String journal = "newJournal";
 
         reference.setJournal(journal);
-        assertEquals(journal, reference.journal);
+        assertEquals(journal, reference.getJournal());
     }
 
     @Test
@@ -79,7 +78,7 @@ public class ArticleReferenceTest {
         String year = "newYear";
 
         reference.setYear(year);
-        assertEquals(year, reference.year);
+        assertEquals(year, reference.getYear());
     }
 
     @Test
@@ -94,7 +93,7 @@ public class ArticleReferenceTest {
         String volume = "newVolume";
 
         reference.setVolume(volume);
-        assertEquals(volume, reference.volume);
+        assertEquals(volume, reference.getVolume());
     }
 
     @Test
@@ -114,11 +113,11 @@ public class ArticleReferenceTest {
         reference.setVolume("volume");
 
         assertEquals("@Article{" + reference.getHeading() + ",\n"
-                + "    author = \"" + reference.getAuthor() + "\",\n"
-                + "    title = \"" + reference.getTitle() + "\",\n"
-                + "    journal = \"" + reference.getJournal() + "\",\n"
-                + "    year = \"" + reference.getYear() + "\",\n"
-                + "    volume = \"" + reference.getVolume() + "\",\n"
+                + "     volume = \"" + reference.getVolume() + "\",\n"
+                + "     journal = \"" + reference.getJournal() + "\",\n"
+                + "     year = \"" + reference.getYear() + "\",\n"
+                + "     author = \"" + reference.getAuthor() + "\",\n"
+                + "     title = \"" + reference.getTitle() + "\"\n"
                 + "}\n", reference.toString(new SpecialCharConverter()));
     }
 }
