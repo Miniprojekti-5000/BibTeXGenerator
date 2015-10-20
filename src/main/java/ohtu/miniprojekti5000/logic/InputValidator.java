@@ -81,8 +81,11 @@ public class InputValidator
      */
     public Input validateHeaderInput(List<ReferenceInterface> references, String input)
     {
-        if (!input.isEmpty() || !references.contains(input)) return new Input(input, true);
-        else return new Input("", false);
+        for (ReferenceInterface reference : references)
+        {
+            if (reference.getHeading().matches(input)) return new Input("", false);
+        }
+        return new Input(input, true);
     }
     
     /**
