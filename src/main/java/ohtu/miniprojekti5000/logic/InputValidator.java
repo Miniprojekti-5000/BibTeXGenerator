@@ -34,7 +34,7 @@ public class InputValidator
         }
         catch (Exception e) {}
         
-        if (valid && value >= 0 && value < 5) // valid commands are 0,1  <--------------------- add new commands here and update javadoc plz.
+        if (valid && value >= 0 && value < 8) // valid commands are 0,1  <--------------------- add new commands here and update javadoc plz.
         {
             return new Input(value, true);
         } else return new Input(value, false);

@@ -42,14 +42,27 @@ public class ConsoleIO implements IO{
             System.out.println(ref.toString(specialCharConverter));
         }
     }
+
+    public void printReferencesWithIds(List<ReferenceInterface> references) {
+        Integer i = 1;
+        for (ReferenceInterface ref : references) {
+            System.out.println(i  + ": " + ref.toString(specialCharConverter));
+
+            i++;
+        }
+    }
     
 
     public void printAvailableCommands(boolean hasReferences) {
         System.out.println("1) Add book");
         System.out.println("2) Add article");
-
+        System.out.println("3) Add inproceedings");
+        System.out.println("4) Edit reference");
+        System.out.println("5) Delete reference");
         if (hasReferences) {
-            System.out.println("3) Make bibtex");
+        System.out.println("6) List all references");
+
+            System.out.println("7) Make bibtex");
         }
         System.out.println("0) Quit");
     }

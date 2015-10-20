@@ -74,7 +74,12 @@ public class Controller {
                     break;
                 case 2: if (readArticle()) io.printAdded("Article"); // read article
                     break;
-                case 3: // print references, if has references
+                case 6: // print references, if has references
+                {
+                    if (references.isEmpty()) io.printError("not a valid command");
+                    else { io.printReferencesWithIds(references); }
+                } break;
+                case 7: // print references, if has references
                 {
                     if (references.isEmpty()) io.printError("not a valid command");
                     else { io.printReferences(references); }
