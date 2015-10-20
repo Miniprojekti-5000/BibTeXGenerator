@@ -3,6 +3,8 @@ package ohtu.miniprojekti5000.ui;
 import java.util.List;
 import java.util.Scanner;
 
+// ui_refactor
+
 import ohtu.miniprojekti5000.data_access.FileHandler;
 import ohtu.miniprojekti5000.domain.ArticleReference;
 import ohtu.miniprojekti5000.domain.BookReference;
