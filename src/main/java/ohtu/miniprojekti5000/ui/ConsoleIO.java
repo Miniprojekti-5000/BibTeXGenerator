@@ -11,7 +11,7 @@ import ohtu.miniprojekti5000.logic.SpecialCharConverter;
 
 public class ConsoleIO implements IO{
     public final SpecialCharConverter specialCharConverter;
-    private final Scanner scanner;
+    private final Scanner scanner; // can be deleted, newest version of ui uses anonymous scanner
     public final FileHandler fileHandler;
     private String filename;
 
@@ -26,30 +26,13 @@ public class ConsoleIO implements IO{
         specialCharConverter.addReplace("ä", "\\\"a");
         specialCharConverter.addReplace("ö", "\\\"o");
 
-        scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in); // can be deleted, newest version of ui uses anonymous scanner
     }
     
-    public void askFileName()
+    public String askFileName()
     {
         System.out.println("enter file name: (if doesnt exist creates a new blank file)");
-        String user_entered_filename = scanner.nextLine();
-        
-        if (!user_entered_filename.endsWith(".bib"))
-        {
-            System.out.println("[ ERROR ] invalid filename, must be in form *.bib");
-            askFileName();
-        } else
-        {
-            filename = user_entered_filename;
-            if (fileHandler.loadFile(user_entered_filename))
-            {
-                System.out.println(filename+" was opened successfully.");
-            } else
-            {
-                System.out.println("new file was created.");
-            }
-            fileHandler.parseFile();
-        }
+        return new Scanner(System.in).nextLine();
         
     }
     
@@ -59,6 +42,7 @@ public class ConsoleIO implements IO{
             System.out.println(ref.toString(specialCharConverter));
         }
     }
+    
 
     public void printAvailableCommands(boolean hasReferences) {
         System.out.println("1) Add book");
@@ -67,13 +51,82 @@ public class ConsoleIO implements IO{
         if (hasReferences) {
             System.out.println("3) Make bibtex");
         }
-        System.out.println("4) Quit");
+        System.out.println("0) Quit");
     }
 
-    public int getCommand() {
-        return Integer.parseInt(scanner.nextLine());
+    
+    
+    public String getInputString()
+    {
+        return new Scanner(System.in).nextLine();
+    }
+    
+    public void printError(String message)
+    {
+        System.out.println(message);
+    }
+    
+    public void printSuccess(String message)
+    {
+        System.out.println(message);
+    }
+    
+    public String askHeader()
+    {
+        System.out.print("Header: ");
+        return new Scanner(System.in).nextLine();
+    }
+    
+    public String askAuthor()
+    {
+        System.out.print("Author: ");
+        return new Scanner(System.in).nextLine();
+    }
+    
+    public String askTitle()
+    {
+        System.out.print("Title: ");
+        return new Scanner(System.in).nextLine();
+    }
+    
+    public String askPublisher()
+    {
+        System.out.print("Publisher: ");
+        return new Scanner(System.in).nextLine();
+    }
+    public String askYear()
+    {
+        System.out.print("Year: ");
+        return new Scanner(System.in).nextLine();
+    }
+    public String askJournal()
+    {
+        System.out.print("Journal: ");
+        return new Scanner(System.in).nextLine();
+    }
+    public String askVolume()
+    {
+        System.out.print("Volume: ");
+        return new Scanner(System.in).nextLine();
+    }
+    
+
+    public void printAdded(String type) {
+        System.out.println(type + " was succesfully added.\n");
     }
 
+    
+    
+    
+    
+    
+    // obsolete methods from now on, not yet removed due test and interface dependencies.
+    
+    
+    /**
+     * not in use anymore with newest UI.
+     * @return 
+     */
     public BookReference readBook() {
         BookReference book = new BookReference();
 
@@ -96,6 +149,10 @@ public class ConsoleIO implements IO{
         return book;
     }
 
+    /**
+     * not in use anymore with newest UI.
+     * @return 
+     */
     public ArticleReference readArticle() {
         ArticleReference article = new ArticleReference();
 
@@ -121,25 +178,29 @@ public class ConsoleIO implements IO{
 
         return article;
     }
-
-    public void printAdded(String type) {
-        System.out.println(type + " was succesfully added.\n");
-    }
-
+    /**
+     * not in use anymore with newest UI.
+     * @return 
+     */
     public void printHeadingAlreadyExists(String heading) {
         System.out.println("Heading \"" + heading + "\" already exists. Choose another.");
         System.out.println("");
     }
-
+    /**
+     * not in use anymore with newest UI.
+     * functionality moved behind controller
+     * @return 
+     */
     public void appendFile(ReferenceInterface reference) {
         fileHandler.appendFile(filename, reference.toString(specialCharConverter));
     }
-
-//    public void printReferencesFromFile() {
-//        System.out.println("All references saved to " + filename);
-//        System.out.println("");
-//        System.out.println("Generated BibTeX:");
-//        System.out.println("");
-//        System.out.println(fileHandler.getContent());
-//    }
+    
+    /**
+     * not in use anymore with newest UI.
+     * abandoned due crashing program with incorrect input.
+     * @return 
+     */
+    public int getCommand() {
+        return Integer.parseInt(scanner.nextLine());
+    }
 }
