@@ -121,7 +121,19 @@ public class Controller {
         if(!references.isEmpty()) {
             Integer id = Integer.parseInt(io.askReferenceId("edit")) - 1;
             if(references.get(id) != null) {
-                // TODO: edit
+                if(references.get(id) instanceof ArticleReference) {
+                    ArticleReference ar = readArticleAsEdit();
+                    if(ar != null)
+                        references.set(id, ar);
+                } else if(references.get(id) instanceof BookReference) {
+                    BookReference br = readBookAsEdit();
+                    if(br != null)
+                        references.set(id, br);
+                } else if(references.get(id) instanceof InproceedingsReference) {
+                    InproceedingsReference ir = readInproceedingsAsEdit();
+                    if(ir != null)
+                        references.set(id, ir);
+                }
             }
         }
 
@@ -213,6 +225,87 @@ public class Controller {
 
         return true;
     }
+
+    private InproceedingsReference readInproceedingsAsEdit()
+    {
+        InproceedingsReference ir = new InproceedingsReference();
+        for (int i = 3; i >= 0; i--) {
+            Input input = ioValidator.validateHeaderInput(references, io.askHeader());
+            if (input.isValid())
+            {
+                ir.setHeading(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty or header already exists, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return null;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateStringInput(io.askAuthor());
+            if (input.isValid())
+            {
+                ir.setAuthor(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return null;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateStringInput(io.askTitle());
+            if (input.isValid())
+            {
+                ir.setTitle(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return null;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateStringInput(io.askBookTitle());
+            if (input.isValid())
+            {
+                ir.setBookTitle(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return null;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateYearInput(io.askYear());
+            if (input.isValid())
+            {
+                ir.setYear(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("not a year, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return null;
+            }
+        }
+
+        return ir;
+    }
+
 
     /**
      * asks information for journal type reference through console IO.
@@ -320,7 +413,102 @@ public class Controller {
         
         return true;
     }
-    
+
+    private ArticleReference readArticleAsEdit()
+    {
+        ArticleReference ar = new ArticleReference();
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateHeaderInput(references, io.askHeader());
+            if (input.isValid())
+            {
+                ar.setHeading(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty or header already exists, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return null;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateStringInput(io.askAuthor());
+            if (input.isValid())
+            {
+                ar.setAuthor(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return null;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateStringInput(io.askTitle());
+            if (input.isValid())
+            {
+                ar.setTitle(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return null;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateStringInput(io.askJournal());
+            if (input.isValid())
+            {
+                ar.setJournal(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return null;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateYearInput(io.askYear());
+            if (input.isValid())
+            {
+                ar.setYear(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("not a year, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return null;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateStringInput(io.askVolume());
+            if (input.isValid())
+            {
+                ar.setVolume(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return null;
+            }
+        }
+        return ar;
+    }
+
     /**
      * asks information for book type reference through console IO.
      * gives three attempts for each, and after three fails returns failure.
@@ -411,5 +599,85 @@ public class Controller {
         filehandler.appendFile(filename, br.toString(specialCharConverter));
         
         return true;
+    }
+
+    private BookReference readBookAsEdit()
+    {
+        BookReference br = new BookReference();
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateHeaderInput(references, io.askHeader());
+            if (input.isValid())
+            {
+                br.setHeading(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty or header already exists, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return null;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateStringInput(io.askAuthor());
+            if (input.isValid())
+            {
+                br.setAuthor(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return null;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateStringInput(io.askTitle());
+            if (input.isValid())
+            {
+                br.setTitle(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return null;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateStringInput(io.askPublisher());
+            if (input.isValid())
+            {
+                br.setPublisher(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return null;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateYearInput(io.askYear());
+            if (input.isValid())
+            {
+                br.setYear(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("not a year, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return null;
+            }
+        }
+        return br;
     }
 }
