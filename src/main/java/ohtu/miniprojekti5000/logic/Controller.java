@@ -74,6 +74,16 @@ public class Controller {
                     break;
                 case 2: if (readArticle()) io.printAdded("Article"); // read article
                     break;
+                case 4: // edit reference, if has references
+                {
+                    if (references.isEmpty()) io.printError("not a valid command");
+                    else { if(editReference()) io.printEdited(); }
+                } break;
+                case 5: // delete reference, if has references
+                {
+                    if (references.isEmpty()) io.printError("not a valid command");
+                    else { if(deleteReference()) io.printDeleted(); }
+                } break;
                 case 6: // print references, if has references
                 {
                     if (references.isEmpty()) io.printError("not a valid command");
@@ -89,7 +99,31 @@ public class Controller {
         
         run();
     }
-    
+
+    private boolean deleteReference() {
+        if(!references.isEmpty()) {
+            int id = Integer.parseInt(io.askReferenceId("delete")) - 1;
+
+            if(references.get(id) != null) {
+                references.remove(id);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean editReference() {
+        if(!references.isEmpty()) {
+            Integer id = Integer.parseInt(io.askReferenceId("edit")) - 1;
+            if(references.get(id) != null) {
+                // TODO: edit
+            }
+        }
+
+        return false;
+    }
+
     /**
      * asks information for journal type reference through console IO.
      * gives three attempts for each, and after three fails returns failure.

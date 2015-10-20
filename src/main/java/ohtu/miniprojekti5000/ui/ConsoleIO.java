@@ -57,13 +57,14 @@ public class ConsoleIO implements IO{
         System.out.println("1) Add book");
         System.out.println("2) Add article");
         System.out.println("3) Add inproceedings");
-        System.out.println("4) Edit reference");
-        System.out.println("5) Delete reference");
-        if (hasReferences) {
-        System.out.println("6) List all references");
 
+        if (hasReferences) {
+            System.out.println("4) Edit reference");
+            System.out.println("5) Delete reference");
+            System.out.println("6) List all references");
             System.out.println("7) Make bibtex");
         }
+
         System.out.println("0) Quit");
     }
 
@@ -82,6 +83,12 @@ public class ConsoleIO implements IO{
     public void printSuccess(String message)
     {
         System.out.println(message);
+    }
+
+    public String askReferenceId(String action)
+    {
+        System.out.print("ID to " + action + ": ");
+        return new Scanner(System.in).nextLine();
     }
     
     public String askHeader()
@@ -128,6 +135,13 @@ public class ConsoleIO implements IO{
         System.out.println(type + " was succesfully added.\n");
     }
 
+    public void printEdited() {
+        System.out.println("Item was successfully edited.\n");
+    }
+
+    public void printDeleted() {
+        System.out.println("Item was succesfully deleted.\n");
+    }
     
     
     
