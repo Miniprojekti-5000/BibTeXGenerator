@@ -1,6 +1,8 @@
 package ohtu.miniprojekti5000.logic;
 
 import java.util.ArrayList;
+
+import ohtu.miniprojekti5000.domain.InproceedingsReference;
 import ohtu.miniprojekti5000.ui.ConsoleIO;
 import java.util.List;
 import ohtu.miniprojekti5000.data_access.FileHandler;
@@ -74,6 +76,8 @@ public class Controller {
                     break;
                 case 2: if (readArticle()) io.printAdded("Article"); // read article
                     break;
+                case 3: if (readInproceedings()) io.printAdded("Inproceedings");
+                    break;
                 case 4: // edit reference, if has references
                 {
                     if (references.isEmpty()) io.printError("not a valid command");
@@ -122,6 +126,92 @@ public class Controller {
         }
 
         return false;
+    }
+
+    private boolean readInproceedings()
+    {
+        InproceedingsReference ir = new InproceedingsReference();
+        for (int i = 3; i >= 0; i--) {
+            Input input = ioValidator.validateHeaderInput(references, io.askHeader());
+            if (input.isValid())
+            {
+                ir.setHeading(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty or header already exists, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return false;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateStringInput(io.askAuthor());
+            if (input.isValid())
+            {
+                ir.setAuthor(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return false;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateStringInput(io.askTitle());
+            if (input.isValid())
+            {
+                ir.setTitle(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return false;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateStringInput(io.askBookTitle());
+            if (input.isValid())
+            {
+                ir.setBookTitle(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return false;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--)
+        {
+            Input input = ioValidator.validateYearInput(io.askYear());
+            if (input.isValid())
+            {
+                ir.setYear(input.getStringValue());
+                break;
+            } else if (i > 0) io.printError("not a year, please try again. "+i+" attempts left");
+            else
+            {
+                io.printError("fail -> return to main menu");
+                return false;
+            }
+        }
+
+
+        // tähän kysely optionaalisista kentistä ja niiden lisäys
+
+        references.add(ir);
+        filehandler.appendFile(filename, ir.toString(specialCharConverter));
+
+        return true;
     }
 
     /**

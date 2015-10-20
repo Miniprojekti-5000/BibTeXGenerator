@@ -96,6 +96,12 @@ public class ConsoleIO implements IO{
         System.out.print("Header: ");
         return new Scanner(System.in).nextLine();
     }
+
+    public String askBookTitle()
+    {
+        System.out.print("Booktitle: ");
+        return new Scanner(System.in).nextLine();
+    }
     
     public String askAuthor()
     {
