@@ -218,7 +218,7 @@ public class Controller {
             Input input = ioValidator.validateYearInput(io.askYear());
             if (input.isValid())
             {
-                ir.setYear(input.getStringValue());
+                ir.setYear(Integer.toString(input.getIntegerValue()));
                 break;
             } else if (i > 0) io.printError("not a year, please try again. "+i+" attempts left");
             else
@@ -357,7 +357,7 @@ public class Controller {
             Input input = ioValidator.validateYearInput(io.askYear());
             if (input.isValid())
             {
-                ar.setYear(input.getStringValue());
+                ar.setYear(Integer.toString(input.getIntegerValue()));
                 break;
             } else if (i > 0) io.printError("not a year, please try again. "+i+" attempts left");
             else
@@ -424,12 +424,13 @@ public class Controller {
         else
                 ar.setJournal(ar_old.getJournal());
 
-        input = ioValidator.validateYearInput(io.askYear());
+        input = ioValidator.validateStringInput(io.askYear());
         val = input.getStringValue();
+
         if(!val.equals(""))
-                ar.setYear(input.getStringValue());
+            ar.setYear(val);
         else
-                ar.setYear(ar_old.getYear());
+            ar.setYear(ar_old.getYear());
 
         input = ioValidator.validateStringInput(io.askVolume());
         val = input.getStringValue();
@@ -513,7 +514,7 @@ public class Controller {
             Input input = ioValidator.validateYearInput(io.askYear());
             if (input.isValid())
             {
-                br.setYear(input.getStringValue());
+                br.setYear(Integer.toString(input.getIntegerValue()));
                 break;
             } else if (i > 0) io.printError("not a year, please try again. "+i+" attempts left");
             else
@@ -550,7 +551,7 @@ public class Controller {
         if(!val.equals(""))
                 br.setAuthor(input.getStringValue());
         else
-                br.setAuthor(br_old.getAuthor());
+            br.setAuthor(br_old.getAuthor());
 
         input = ioValidator.validateStringInput(io.askTitle());
         val = input.getStringValue();
@@ -558,21 +559,21 @@ public class Controller {
         if(!val.equals(""))
                 br.setTitle(input.getStringValue());
         else
-                br.setTitle(br_old.getTitle());
+            br.setTitle(br_old.getTitle());
 
         input = ioValidator.validateStringInput(io.askPublisher());
         val = input.getStringValue();
 
         if(!val.equals(""))
-                br.setPublisher(input.getStringValue());
+            br.setPublisher(input.getStringValue());
         else
             br.setPublisher(br_old.getPublisher());
 
-        input = ioValidator.validateYearInput(io.askYear());
+        input = ioValidator.validateStringInput(io.askYear());
         val = input.getStringValue();
 
         if(!val.equals(""))
-                br.setYear(input.getStringValue());
+                br.setYear(val);
         else
                 br.setYear(br_old.getYear());
 
