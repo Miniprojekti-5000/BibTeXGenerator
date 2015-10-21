@@ -7,4 +7,5 @@ public interface ReferenceInterface
     String getHeading();
     void setHeading(String heading);
     String toString(SpecialCharConverter specialCharConverter);
+    String userFriendlyBibtex();
 }
