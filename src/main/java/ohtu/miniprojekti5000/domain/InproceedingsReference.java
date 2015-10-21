@@ -34,6 +34,15 @@ public class InproceedingsReference implements ReferenceInterface {
     public String getTitle() { return required_fields.get("title"); }
     public String getBookTitle() { return required_fields.get("booktitle"); }
     public String getYear() { return required_fields.get("year"); }
+    public String getVolume() { return optional_fields.get("volume"); }
+    public String getSeries() { return optional_fields.get("series"); }
+    public String getAddress() { return optional_fields.get("address"); }
+    public String getEditor() { return optional_fields.get("editor"); }
+    public String getOrganization() { return optional_fields.get("organization"); }
+    public String getPublisher() { return optional_fields.get("publisher"); }
+    public String getMonth() { return optional_fields.get("month"); }
+    public String getNote() { return optional_fields.get("note"); }
+    public String getKey() { return optional_fields.get("key"); }
 
     public void setHeading(String heading) {
         this.heading = heading;

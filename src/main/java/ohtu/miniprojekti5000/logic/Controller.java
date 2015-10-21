@@ -246,6 +246,87 @@ public class Controller {
             ir.setYear(ir_old.getYear());
         }
 
+        input = ioValidator.validateStringInput(io.askVolume());
+        val = input.getStringValue();
+
+        if (!val.equals("")) {
+            ir.setVolume(val);
+        } else {
+            ir.setVolume(ir_old.getVolume());
+        }
+
+        input = ioValidator.validateStringInput(io.askSeries());
+        val = input.getStringValue();
+
+        if (!val.equals("")) {
+            ir.setSeries(val);
+        } else {
+            ir.setSeries(ir_old.getSeries());
+        }
+
+        input = ioValidator.validateStringInput(io.askAddress());
+        val = input.getStringValue();
+
+        if (!val.equals("")) {
+            ir.setAddress(val);
+        } else {
+            ir.setAddress(ir_old.getAddress());
+        }
+
+        input = ioValidator.validateStringInput(io.askEditor());
+        val = input.getStringValue();
+
+        if (!val.equals("")) {
+            ir.setEditor(val);
+        } else {
+            ir.setEditor(ir_old.getEditor());
+        }
+
+        input = ioValidator.validateStringInput(io.askOrganization());
+        val = input.getStringValue();
+
+        if (!val.equals("")) {
+            ir.setOrganization(val);
+        } else {
+            ir.setOrganization(ir_old.getOrganization());
+        }
+
+        input = ioValidator.validateStringInput(io.askPublisher());
+        val = input.getStringValue();
+
+        if (!val.equals("")) {
+            ir.setPublisher(val);
+        } else {
+            ir.setPublisher(ir_old.getPublisher());
+        }
+
+        input = ioValidator.validateStringInput(io.askMonth());
+        val = input.getStringValue();
+
+        if (!val.equals("")) {
+            ir.setMonth(val);
+        } else {
+            ir.setMonth(ir_old.getMonth());
+        }
+
+        input = ioValidator.validateStringInput(io.askNote());
+        val = input.getStringValue();
+
+        if (!val.equals("")) {
+            ir.setNote(val);
+        } else {
+            ir.setNote(ir_old.getNote());
+        }
+
+        input = ioValidator.validateStringInput(io.askKey());
+        val = input.getStringValue();
+
+        if (!val.equals("")) {
+            ir.setKey(val);
+        } else {
+            ir.setKey(ir_old.getKey());
+        }
+
         return ir;
     }
 
@@ -323,6 +404,47 @@ public class Controller {
         } else {
             ar.setVolume(ar_old.getVolume());
         }
+
+        input = ioValidator.validateStringInput(io.askNumber());
+        val = input.getStringValue();
+        if (!val.equals("")) {
+            ar.setNumber(input.getStringValue());
+        } else {
+            ar.setNumber(ar_old.getNumber());
+        }
+
+        input = ioValidator.validateStringInput(io.askPages());
+        val = input.getStringValue();
+        if (!val.equals("")) {
+            ar.setPages(input.getStringValue());
+        } else {
+            ar.setPages(ar_old.getPages());
+        }
+
+        input = ioValidator.validateStringInput(io.askMonth());
+        val = input.getStringValue();
+        if (!val.equals("")) {
+            ar.setMonth(input.getStringValue());
+        } else {
+            ar.setMonth(ar_old.getMonth());
+        }
+
+        input = ioValidator.validateStringInput(io.askNote());
+        val = input.getStringValue();
+        if (!val.equals("")) {
+            ar.setNote(input.getStringValue());
+        } else {
+            ar.setNote(ar_old.getNote());
+        }
+
+        input = ioValidator.validateStringInput(io.askKey());
+        val = input.getStringValue();
+        if (!val.equals("")) {
+            ar.setKey(input.getStringValue());
+        } else {
+            ar.setKey(ar_old.getKey());
+        }
+
         return ar;
     }
 
@@ -394,6 +516,69 @@ public class Controller {
             br.setYear(val);
         } else {
             br.setYear(br_old.getYear());
+        }
+
+        input = ioValidator.validateStringInput(io.askVolume());
+        val = input.getStringValue();
+
+        if (!val.equals("")) {
+            br.setVolume(val);
+        } else {
+            br.setVolume(br_old.getVolume());
+        }
+
+        input = ioValidator.validateStringInput(io.askSeries());
+        val = input.getStringValue();
+
+        if (!val.equals("")) {
+            br.setSeries(val);
+        } else {
+            br.setSeries(br_old.getSeries());
+        }
+
+        input = ioValidator.validateStringInput(io.askAddress());
+        val = input.getStringValue();
+
+        if (!val.equals("")) {
+            br.setAddress(val);
+        } else {
+            br.setAddress(br_old.getAddress());
+        }
+
+        input = ioValidator.validateStringInput(io.askEdition());
+        val = input.getStringValue();
+
+        if (!val.equals("")) {
+            br.setEdition(val);
+        } else {
+            br.setEdition(br_old.getEdition());
+        }
+
+        input = ioValidator.validateStringInput(io.askMonth());
+        val = input.getStringValue();
+
+        if (!val.equals("")) {
+            br.setMonth(val);
+        } else {
+            br.setMonth(br_old.getMonth());
+        }
+
+        input = ioValidator.validateStringInput(io.askNote());
+        val = input.getStringValue();
+
+        if (!val.equals("")) {
+            br.setNote(val);
+        } else {
+            br.setNote(br_old.getNote());
+        }
+
+        input = ioValidator.validateStringInput(io.askKey());
+        val = input.getStringValue();
+
+        if (!val.equals("")) {
+            br.setKey(val);
+        } else {
+            br.setKey(br_old.getKey());
         }
 
         return br;

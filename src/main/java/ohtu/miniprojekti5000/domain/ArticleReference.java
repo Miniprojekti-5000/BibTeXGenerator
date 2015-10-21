@@ -39,6 +39,12 @@ public class ArticleReference implements ReferenceInterface  {
     public String getJournal() { return required_fields.get("journal"); }
     public String getYear() { return required_fields.get("year"); }
     public String getVolume() { return required_fields.get("volume"); }
+    public String getNumber() { return optional_fields.get("number"); }
+    public String getPages() { return optional_fields.get("pages"); }
+    public String getMonth() { return optional_fields.get("month"); }
+    public String getNote() { return optional_fields.get("note"); }
+    public String getKey() { return optional_fields.get("key"); }
+    
 
     public void setHeading(String heading) {
         this.heading = heading;
