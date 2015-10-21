@@ -110,6 +110,7 @@ public class Controller {
 
             if(references.get(id) != null) {
                 references.remove(id);
+                filehandler.rewriteFile(filename, references, specialCharConverter);
                 return true;
             }
         }
@@ -123,16 +124,25 @@ public class Controller {
             if(references.get(id) != null) {
                 if(references.get(id) instanceof ArticleReference) {
                     ArticleReference ar = readArticleAsEdit();
-                    if(ar != null)
+
+                    if(ar != null) {
                         references.set(id, ar);
+                        filehandler.rewriteFile(filename, references, specialCharConverter);
+                    }
                 } else if(references.get(id) instanceof BookReference) {
                     BookReference br = readBookAsEdit();
-                    if(br != null)
+
+                    if(br != null) {
                         references.set(id, br);
+                        filehandler.rewriteFile(filename, references, specialCharConverter);
+                    }
                 } else if(references.get(id) instanceof InproceedingsReference) {
                     InproceedingsReference ir = readInproceedingsAsEdit();
-                    if(ir != null)
+
+                    if(ir != null) {
                         references.set(id, ir);
+                        filehandler.rewriteFile(filename, references, specialCharConverter);
+                    }
                 }
             }
         }

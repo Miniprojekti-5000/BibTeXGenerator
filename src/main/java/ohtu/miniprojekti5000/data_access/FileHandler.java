@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,6 +14,7 @@ import ohtu.miniprojekti5000.domain.ArticleReference;
 import ohtu.miniprojekti5000.domain.BookReference;
 import ohtu.miniprojekti5000.domain.InproceedingsReference;
 import ohtu.miniprojekti5000.domain.ReferenceInterface;
+import ohtu.miniprojekti5000.logic.SpecialCharConverter;
 
 /**
  *
@@ -234,6 +236,20 @@ public class FileHandler {
         try {
             FileWriter filewriter = new FileWriter(path, true);
             filewriter.write(reference);
+            filewriter.close();
+            return true;
+        } catch (IOException ex) {
+            return false;
+        }
+    }
+
+    public boolean rewriteFile(String path, List<ReferenceInterface> references, SpecialCharConverter specialCharConverter) {
+        try {
+            FileWriter filewriter = new FileWriter(path, false);
+
+            for (ReferenceInterface ref : references) {
+                filewriter.write(ref.toString(specialCharConverter));
+            }
             filewriter.close();
             return true;
         } catch (IOException ex) {
