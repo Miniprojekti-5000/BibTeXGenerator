@@ -45,11 +45,10 @@ public class ConsoleIO implements IO {
     public void printReferencesWithIds(List<ReferenceInterface> references) {
         Integer i = 1;
         for (ReferenceInterface ref : references) {
-<<<<<<< HEAD
+
             System.out.println(i + ": " + ref.toString(specialCharConverter));
-=======
+
             System.out.println(i + ": " + ref.userFriendlyBibtex());
->>>>>>> d1e6371756f26a2f7f5647301812fd3870c5bd75
 
             i++;
         }
@@ -162,6 +161,21 @@ public class ConsoleIO implements IO {
         return new Scanner(System.in).nextLine();
     }
 
+    public String askNumber() {
+        System.out.println("Number: ");
+        return new Scanner(System.in).nextLine();
+    }
+
+    public String askPages() {
+        System.out.println("Pages: ");
+        return new Scanner(System.in).nextLine();
+    }
+
+    public String askEdition() {
+        System.out.println("Edition: ");
+        return new Scanner(System.in).nextLine();
+    }
+
     public void printAdded(String type) {
         System.out.println(type + " was succesfully added.\n");
     }
@@ -172,6 +186,10 @@ public class ConsoleIO implements IO {
 
     public void printDeleted() {
         System.out.println("Item was succesfully deleted.\n");
+    }
+
+    public void printOptionalFieldsNotice() {
+        System.out.println("The following fields are optional and can be left empty");
     }
 
     // obsolete methods from now on, not yet removed due test and interface dependencies.
