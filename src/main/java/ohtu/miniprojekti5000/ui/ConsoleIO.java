@@ -9,7 +9,8 @@ import ohtu.miniprojekti5000.domain.BookReference;
 import ohtu.miniprojekti5000.domain.ReferenceInterface;
 import ohtu.miniprojekti5000.logic.SpecialCharConverter;
 
-public class ConsoleIO implements IO{
+public class ConsoleIO implements IO {
+
     public final SpecialCharConverter specialCharConverter;
     private final Scanner scanner; // can be deleted, newest version of ui uses anonymous scanner
     public final FileHandler fileHandler;
@@ -28,14 +29,12 @@ public class ConsoleIO implements IO{
 
         scanner = new Scanner(System.in); // can be deleted, newest version of ui uses anonymous scanner
     }
-    
-    public String askFileName()
-    {
+
+    public String askFileName() {
         System.out.println("enter file name: (if doesnt exist creates a new blank file)");
         return new Scanner(System.in).nextLine();
-        
+
     }
-    
 
     public void printReferences(List<ReferenceInterface> references) {
         for (ReferenceInterface ref : references) {
@@ -46,12 +45,11 @@ public class ConsoleIO implements IO{
     public void printReferencesWithIds(List<ReferenceInterface> references) {
         Integer i = 1;
         for (ReferenceInterface ref : references) {
-            System.out.println(i  + ": " + ref.toString(specialCharConverter));
+            System.out.println(i + ": " + ref.toString(specialCharConverter));
 
             i++;
         }
     }
-    
 
     public void printAvailableCommands(boolean hasReferences) {
         System.out.println("1) Add book");
@@ -68,74 +66,97 @@ public class ConsoleIO implements IO{
         System.out.println("0) Quit");
     }
 
-    
-    
-    public String getInputString()
-    {
+    public String getInputString() {
         return new Scanner(System.in).nextLine();
     }
-    
-    public void printError(String message)
-    {
-        System.out.println(message);
-    }
-    
-    public void printSuccess(String message)
-    {
+
+    public void printError(String message) {
         System.out.println(message);
     }
 
-    public String askReferenceId(String action)
-    {
+    public void printSuccess(String message) {
+        System.out.println(message);
+    }
+
+    public String askReferenceId(String action) {
         System.out.print("ID to " + action + ": ");
         return new Scanner(System.in).nextLine();
     }
-    
-    public String askHeader()
-    {
+
+    public String askHeader() {
         System.out.print("Header: ");
         return new Scanner(System.in).nextLine();
     }
 
-    public String askBookTitle()
-    {
+    public String askBookTitle() {
         System.out.print("Booktitle: ");
         return new Scanner(System.in).nextLine();
     }
-    
-    public String askAuthor()
-    {
+
+    public String askAuthor() {
         System.out.print("Author: ");
         return new Scanner(System.in).nextLine();
     }
-    
-    public String askTitle()
-    {
+
+    public String askTitle() {
         System.out.print("Title: ");
         return new Scanner(System.in).nextLine();
     }
-    
-    public String askPublisher()
-    {
+
+    public String askPublisher() {
         System.out.print("Publisher: ");
         return new Scanner(System.in).nextLine();
     }
-    public String askYear()
-    {
+
+    public String askYear() {
         System.out.print("Year: ");
         return new Scanner(System.in).nextLine();
     }
-    public String askJournal()
-    {
+
+    public String askJournal() {
         System.out.print("Journal: ");
         return new Scanner(System.in).nextLine();
     }
-    public String askVolume()
-    {
+
+    public String askVolume() {
         System.out.print("Volume: ");
         return new Scanner(System.in).nextLine();
     }
-    
+
+    public String askSeries() {
+        System.out.print("Series: ");
+        return new Scanner(System.in).nextLine();
+    }
+
+    public String askAddress() {
+        System.out.print("Address: ");
+        return new Scanner(System.in).nextLine();
+    }
+
+    public String askEditor() {
+        System.out.print("Editor: ");
+        return new Scanner(System.in).nextLine();
+    }
+
+    public String askOrganization() {
+        System.out.print("Organization: ");
+        return new Scanner(System.in).nextLine();
+    }
+
+    public String askMonth() {
+        System.out.print("Month: ");
+        return new Scanner(System.in).nextLine();
+    }
+
+    public String askNote() {
+        System.out.print("Note: ");
+        return new Scanner(System.in).nextLine();
+    }
+
+    public String askKey() {
+        System.out.print("Key: ");
+        return new Scanner(System.in).nextLine();
+    }
 
     public void printAdded(String type) {
         System.out.println(type + " was succesfully added.\n");
@@ -148,35 +169,33 @@ public class ConsoleIO implements IO{
     public void printDeleted() {
         System.out.println("Item was succesfully deleted.\n");
     }
-    
-    
-    
-    
-    
+
     // obsolete methods from now on, not yet removed due test and interface dependencies.
-    
-    
     /**
      * not in use anymore with newest UI.
-     * @return 
+     *
+     * @return
      */
     public BookReference readBook() {
         BookReference book = new BookReference();
 
         System.out.print("Header: ");
         book.setHeading(scanner.nextLine());
-        
+
         System.out.print("Author: ");
         book.setAuthor(scanner.nextLine());
-        
+
         System.out.print("Title: ");
         book.setTitle(scanner.nextLine());
-        
+
         System.out.print("Publisher: ");
         book.setPublisher(scanner.nextLine());
-        
+
         System.out.print("Year: ");
         book.setYear(scanner.nextLine());
+
+        System.out.print("Volume (optional): ");
+        book.setVolume(scanner.nextLine());
         System.out.println("");
 
         return book;
@@ -184,7 +203,8 @@ public class ConsoleIO implements IO{
 
     /**
      * not in use anymore with newest UI.
-     * @return 
+     *
+     * @return
      */
     public ArticleReference readArticle() {
         ArticleReference article = new ArticleReference();
@@ -211,27 +231,31 @@ public class ConsoleIO implements IO{
 
         return article;
     }
+
     /**
      * not in use anymore with newest UI.
-     * @return 
+     *
+     * @return
      */
     public void printHeadingAlreadyExists(String heading) {
         System.out.println("Heading \"" + heading + "\" already exists. Choose another.");
         System.out.println("");
     }
+
     /**
-     * not in use anymore with newest UI.
-     * functionality moved behind controller
-     * @return 
+     * not in use anymore with newest UI. functionality moved behind controller
+     *
+     * @return
      */
     public void appendFile(ReferenceInterface reference) {
         fileHandler.appendFile(filename, reference.toString(specialCharConverter));
     }
-    
+
     /**
-     * not in use anymore with newest UI.
-     * abandoned due crashing program with incorrect input.
-     * @return 
+     * not in use anymore with newest UI. abandoned due crashing program with
+     * incorrect input.
+     *
+     * @return
      */
     public int getCommand() {
         return Integer.parseInt(scanner.nextLine());

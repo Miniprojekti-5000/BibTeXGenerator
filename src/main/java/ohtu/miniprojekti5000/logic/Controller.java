@@ -12,6 +12,7 @@ import ohtu.miniprojekti5000.domain.BookReference;
 import ohtu.miniprojekti5000.domain.ReferenceInterface;
 
 public class Controller {
+
     private final ConsoleIO io;
     private List<ReferenceInterface> references;
     private final InputValidator ioValidator;
@@ -25,91 +26,119 @@ public class Controller {
         ioValidator = new InputValidator();
         filehandler = new FileHandler();
         filename = "test.bib";
-        
+
         specialCharConverter = new SpecialCharConverter();
 
         specialCharConverter.addReplace("å", "\\a");
         specialCharConverter.addReplace("ä", "\\\"a");
         specialCharConverter.addReplace("ö", "\\\"o");
     }
-    
+
     /**
-     * starts program by asking suitable filename, if fails three times, exits program.
+     * starts program by asking suitable filename, if fails three times, exits
+     * program.
      */
-    public void start()
-    {
-        for (int i = 3; i >= 0; i--)
-        {
+    public void start() {
+        for (int i = 3; i >= 0; i--) {
             Input filename = ioValidator.validateFileName(io.askFileName());
-            if (filename.isValid())
-            {
+            if (filename.isValid()) {
                 this.filename = filename.getStringValue();
                 filehandler.loadFile(this.filename);
                 references = filehandler.parseFile();
                 break;
-            } else if (i > 0) io.printError("filename must end with .bib, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("filename must end with .bib, please try again. " + i + " attempts left");
+            } else {
                 io.printError("failed to give acceptable file name, exiting..");
                 System.exit(0); // exits with success
             }
         }
-        
+
         run();
     }
-    
+
     /**
      * recursive main menu.
      */
-    public void run()
-    {
+    public void run() {
         io.printAvailableCommands(!references.isEmpty());
-        
+
         Input command = ioValidator.validateNumeralCommand(io.getInputString());
-        
+
         if (command.isValid()) // if one has to add new commands, inputvalidator has to be updated, there is a clear mark in ONE LINE for what to change
         {
-            switch (command.getIntegerValue())
-            {
-                case 0: System.exit(0); // exits with success.
-                    break;    
-                case 1: if (readBook()) io.printAdded("Book"); // read book
+            switch (command.getIntegerValue()) {
+                case 0:
+                    System.exit(0); // exits with success.
                     break;
-                case 2: if (readArticle()) io.printAdded("Article"); // read article
+                case 1:
+                    if (readBook()) {
+                        io.printAdded("Book"); // read book
+                    }
                     break;
-                case 3: if (readInproceedings()) io.printAdded("Inproceedings");
+                case 2:
+                    if (readArticle()) {
+                        io.printAdded("Article"); // read article
+                    }
+                    break;
+                case 3:
+                    if (readInproceedings()) {
+                        io.printAdded("Inproceedings");
+                    }
                     break;
                 case 4: // edit reference, if has references
                 {
-                    if (references.isEmpty()) io.printError("not a valid command");
-                    else { if(editReference()) io.printEdited(); }
-                } break;
+                    if (references.isEmpty()) {
+                        io.printError("not a valid command");
+                    } else {
+                        if (editReference()) {
+                            io.printEdited();
+                        }
+                    }
+                }
+                break;
                 case 5: // delete reference, if has references
                 {
-                    if (references.isEmpty()) io.printError("not a valid command");
-                    else { if(deleteReference()) io.printDeleted(); }
-                } break;
+                    if (references.isEmpty()) {
+                        io.printError("not a valid command");
+                    } else {
+                        if (deleteReference()) {
+                            io.printDeleted();
+                        }
+                    }
+                }
+                break;
                 case 6: // print references, if has references
                 {
-                    if (references.isEmpty()) io.printError("not a valid command");
-                    else { io.printReferencesWithIds(references); }
-                } break;
+                    if (references.isEmpty()) {
+                        io.printError("not a valid command");
+                    } else {
+                        io.printReferencesWithIds(references);
+                    }
+                }
+                break;
                 case 7: // print references, if has references
                 {
-                    if (references.isEmpty()) io.printError("not a valid command");
-                    else { io.printReferences(references); }
-                } break;
+                    if (references.isEmpty()) {
+                        io.printError("not a valid command");
+                    } else {
+                        io.printReferences(references);
+                    }
+                }
+                break;
             }
-        } else io.printError("not a valid command.");
-        
+        } else {
+            io.printError("not a valid command.");
+        }
+
         run();
     }
 
     private boolean deleteReference() {
-        if(!references.isEmpty()) {
+        if (!references.isEmpty()) {
             int id = Integer.parseInt(io.askReferenceId("delete")) - 1;
 
-            if(references.get(id) != null) {
+            if (references.get(id) != null) {
                 references.remove(id);
                 filehandler.rewriteFile(filename, references, specialCharConverter);
                 return true;
@@ -120,27 +149,27 @@ public class Controller {
     }
 
     private boolean editReference() {
-        if(!references.isEmpty()) {
+        if (!references.isEmpty()) {
             Integer id = Integer.parseInt(io.askReferenceId("edit")) - 1;
-            if(references.get(id) != null) {
-                if(references.get(id) instanceof ArticleReference) {
+            if (references.get(id) != null) {
+                if (references.get(id) instanceof ArticleReference) {
                     ArticleReference ar = readArticleAsEdit((ArticleReference) references.get(id));
 
-                    if(ar != null) {
+                    if (ar != null) {
                         references.set(id, ar);
                         filehandler.rewriteFile(filename, references, specialCharConverter);
                     }
-                } else if(references.get(id) instanceof BookReference) {
+                } else if (references.get(id) instanceof BookReference) {
                     BookReference br = readBookAsEdit((BookReference) references.get(id));
 
-                    if(br != null) {
+                    if (br != null) {
                         references.set(id, br);
                         filehandler.rewriteFile(filename, references, specialCharConverter);
                     }
-                } else if(references.get(id) instanceof InproceedingsReference) {
+                } else if (references.get(id) instanceof InproceedingsReference) {
                     InproceedingsReference ir = readInproceedingsAsEdit((InproceedingsReference) references.get(id));
 
-                    if(ir != null) {
+                    if (ir != null) {
                         references.set(id, ir);
                         filehandler.rewriteFile(filename, references, specialCharConverter);
                     }
@@ -151,431 +180,584 @@ public class Controller {
         return false;
     }
 
-    private boolean readInproceedings()
-    {
+    private boolean readInproceedings() {
         InproceedingsReference ir = new InproceedingsReference();
         for (int i = 3; i >= 0; i--) {
             Input input = ioValidator.validateHeaderInput(references, io.askHeader());
-            if (input.isValid())
-            {
+            if (input.isValid()) {
                 ir.setHeading(input.getStringValue());
                 break;
-            } else if (i > 0) io.printError("cannot be empty or header already exists, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("cannot be empty or header already exists, please try again. " + i + " attempts left");
+            } else {
                 io.printError("fail -> return to main menu");
                 return false;
             }
         }
 
-        for (int i = 3; i >= 0; i--)
-        {
+        for (int i = 3; i >= 0; i--) {
             Input input = ioValidator.validateStringInput(io.askAuthor());
-            if (input.isValid())
-            {
+            if (input.isValid()) {
                 ir.setAuthor(input.getStringValue());
                 break;
-            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("cannot be empty, please try again. " + i + " attempts left");
+            } else {
                 io.printError("fail -> return to main menu");
                 return false;
             }
         }
 
-        for (int i = 3; i >= 0; i--)
-        {
+        for (int i = 3; i >= 0; i--) {
             Input input = ioValidator.validateStringInput(io.askTitle());
-            if (input.isValid())
-            {
+            if (input.isValid()) {
                 ir.setTitle(input.getStringValue());
                 break;
-            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("cannot be empty, please try again. " + i + " attempts left");
+            } else {
                 io.printError("fail -> return to main menu");
                 return false;
             }
         }
 
-        for (int i = 3; i >= 0; i--)
-        {
+        for (int i = 3; i >= 0; i--) {
             Input input = ioValidator.validateStringInput(io.askBookTitle());
-            if (input.isValid())
-            {
+            if (input.isValid()) {
                 ir.setBookTitle(input.getStringValue());
                 break;
-            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("cannot be empty, please try again. " + i + " attempts left");
+            } else {
                 io.printError("fail -> return to main menu");
                 return false;
             }
         }
 
-        for (int i = 3; i >= 0; i--)
-        {
+        for (int i = 3; i >= 0; i--) {
             Input input = ioValidator.validateYearInput(io.askYear());
-            if (input.isValid())
-            {
+            if (input.isValid()) {
                 ir.setYear(Integer.toString(input.getIntegerValue()));
                 break;
-            } else if (i > 0) io.printError("not a year, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("not a year, please try again. " + i + " attempts left");
+            } else {
+                io.printError("fail -> return to main menu");
+                return false;
+            }
+        }
+        for (int i = 3; i >= 0; i--) {
+            String volumeInput = io.askVolume();
+            if (volumeInput.isEmpty()) {
+                break;
+            }
+
+            Input input = ioValidator.validateVolumeInput(volumeInput);
+            if (input.isValid()) {
+
+                ir.setVolume(Integer.toString(input.getIntegerValue()));
+                break;
+            } else if (i > 0) {
+                io.printError("not a volume, please try again. " + i + " attempts left");
+            } else {
                 io.printError("fail -> return to main menu");
                 return false;
             }
         }
 
+        for (int i = 3; i >= 0; i--) {
+            String seriesInput = io.askSeries();
+            if (seriesInput.isEmpty()) {
+                break;
+            }
+
+            Input input = ioValidator.validateStringInput(seriesInput);
+            if (input.isValid()) {
+
+                ir.setSeries(input.getStringValue());
+                break;
+            } else if (i > 0) {
+                io.printError("not a series, please try again. " + i + " attempts left");
+            } else {
+                io.printError("fail -> return to main menu");
+                return false;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--) {
+            String addressInput = io.askAddress();
+            if (addressInput.isEmpty()) {
+                break;
+            }
+            Input input = ioValidator.validateStringInput(addressInput);
+            if (input.isValid()) {
+
+                ir.setAddress(input.getStringValue());
+                break;
+            } else if (i > 0) {
+                io.printError("not a address, please try again. " + i + " attempts left");
+            } else {
+                io.printError("fail -> return to main menu");
+                return false;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--) {
+            String editorInput = io.askEditor();
+            if (editorInput.isEmpty()) {
+                break;
+            }
+            Input input = ioValidator.validateStringInput(editorInput);
+            if (input.isValid()) {
+
+                ir.setAddress(input.getStringValue());
+                break;
+            } else if (i > 0) {
+                io.printError("not a editor, please try again. " + i + " attempts left");
+            } else {
+                io.printError("fail -> return to main menu");
+                return false;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--) {
+            String organizationInput = io.askOrganization();
+            if (organizationInput.isEmpty()) {
+                break;
+            }
+            Input input = ioValidator.validateStringInput(organizationInput);
+            if (input.isValid()) {
+
+                ir.setAddress(input.getStringValue());
+                break;
+            } else if (i > 0) {
+                io.printError("not a organization, please try again. " + i + " attempts left");
+            } else {
+                io.printError("fail -> return to main menu");
+                return false;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--) {
+            String publisherInput = io.askPublisher();
+            if (publisherInput.isEmpty()) {
+                break;
+            }
+            Input input = ioValidator.validateStringInput(publisherInput);
+            if (input.isValid()) {
+
+                ir.setAddress(input.getStringValue());
+                break;
+            } else if (i > 0) {
+                io.printError("not a publisher, please try again. " + i + " attempts left");
+            } else {
+                io.printError("fail -> return to main menu");
+                return false;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--) {
+            String editorInput = io.askEditor();
+            if (editorInput.isEmpty()) {
+                break;
+            }
+            Input input = ioValidator.validateStringInput(editorInput);
+            if (input.isValid()) {
+
+                ir.setAddress(input.getStringValue());
+                break;
+            } else if (i > 0) {
+                io.printError("not a editor, please try again. " + i + " attempts left");
+            } else {
+                io.printError("fail -> return to main menu");
+                return false;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--) {
+            String monthInput = io.askMonth();
+            if (monthInput.isEmpty()) {
+                break;
+            }
+            Input input = ioValidator.validateMonthInput(monthInput);
+            if (input.isValid()) {
+
+                ir.setAddress(input.getStringValue());
+                break;
+            } else if (i > 0) {
+                io.printError("not a month, please try again. " + i + " attempts left");
+            } else {
+                io.printError("fail -> return to main menu");
+                return false;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--) {
+            String noteInput = io.askNote();
+            if (noteInput.isEmpty()) {
+                break;
+            }
+            Input input = ioValidator.validateNoteInput(noteInput);
+            if (input.isValid()) {
+
+                ir.setAddress(input.getStringValue());
+                break;
+            } else if (i > 0) {
+                io.printError("not a note, please try again. " + i + " attempts left");
+            } else {
+                io.printError("fail -> return to main menu");
+                return false;
+            }
+        }
+
+        for (int i = 3; i >= 0; i--) {
+            String keyInput = io.askKey();
+            if (keyInput.isEmpty()) {
+                break;
+            }
+            Input input = ioValidator.validateStringInput(keyInput);
+            if (input.isValid()) {
+
+                ir.setAddress(input.getStringValue());
+                break;
+            } else if (i > 0) {
+                io.printError("not a key, please try again. " + i + " attempts left");
+            } else {
+                io.printError("fail -> return to main menu");
+                return false;
+            }
+        }
 
         // tähän kysely optionaalisista kentistä ja niiden lisäys
-
         references.add(ir);
         filehandler.appendFile(filename, ir.toString(specialCharConverter));
 
         return true;
     }
 
-    private InproceedingsReference readInproceedingsAsEdit(InproceedingsReference ir_old)
-    {
+    private InproceedingsReference readInproceedingsAsEdit(InproceedingsReference ir_old) {
         InproceedingsReference ir = new InproceedingsReference();
         Input input = ioValidator.validateHeaderInput(references, io.askHeader());
         String val = input.getStringValue();
 
-        if(!val.equals(""))
+        if (!val.equals("")) {
             ir.setHeading(val);
-        else
+        } else {
             ir.setHeading(ir_old.getHeading());
+        }
 
         input = ioValidator.validateStringInput(io.askAuthor());
         val = input.getStringValue();
 
-        if(!val.equals(""))
+        if (!val.equals("")) {
             ir.setAuthor(val);
-        else
+        } else {
             ir.setAuthor(ir_old.getAuthor());
+        }
 
         input = ioValidator.validateStringInput(io.askTitle());
         val = input.getStringValue();
 
-        if(!val.equals(""))
+        if (!val.equals("")) {
             ir.setTitle(val);
-        else
+        } else {
             ir.setTitle(ir_old.getTitle());
+        }
 
         input = ioValidator.validateStringInput(io.askBookTitle());
         val = input.getStringValue();
 
-        if(!val.equals(""))
+        if (!val.equals("")) {
             ir.setBookTitle(val);
-        else
+        } else {
             ir.setBookTitle(ir_old.getBookTitle());
+        }
 
         input = ioValidator.validateStringInput(io.askYear());
         val = input.getStringValue();
 
-        if(!val.equals(""))
+        if (!val.equals("")) {
             ir.setYear(val);
-        else
+        } else {
             ir.setYear(ir_old.getYear());
+        }
 
         return ir;
     }
 
-
     /**
-     * asks information for journal type reference through console IO.
-     * gives three attempts for each, and after three fails returns failure.
+     * asks information for journal type reference through console IO. gives
+     * three attempts for each, and after three fails returns failure.
+     *
      * @return if book type reference was created successfully.
      */
-    private boolean readArticle()
-    {
+    private boolean readArticle() {
         ArticleReference ar = new ArticleReference();
-        for (int i = 3; i >= 0; i--)
-        {
+        for (int i = 3; i >= 0; i--) {
             Input input = ioValidator.validateHeaderInput(references, io.askHeader());
-            if (input.isValid())
-            {
+            if (input.isValid()) {
                 ar.setHeading(input.getStringValue());
                 break;
-            } else if (i > 0) io.printError("cannot be empty or header already exists, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("cannot be empty or header already exists, please try again. " + i + " attempts left");
+            } else {
                 io.printError("fail -> return to main menu");
                 return false;
             }
         }
-        
-        for (int i = 3; i >= 0; i--)
-        {
+
+        for (int i = 3; i >= 0; i--) {
             Input input = ioValidator.validateStringInput(io.askAuthor());
-            if (input.isValid())
-            {
+            if (input.isValid()) {
                 ar.setAuthor(input.getStringValue());
                 break;
-            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("cannot be empty, please try again. " + i + " attempts left");
+            } else {
                 io.printError("fail -> return to main menu");
                 return false;
             }
         }
-        
-        for (int i = 3; i >= 0; i--)
-        {
+
+        for (int i = 3; i >= 0; i--) {
             Input input = ioValidator.validateStringInput(io.askTitle());
-            if (input.isValid())
-            {
+            if (input.isValid()) {
                 ar.setTitle(input.getStringValue());
                 break;
-            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("cannot be empty, please try again. " + i + " attempts left");
+            } else {
                 io.printError("fail -> return to main menu");
                 return false;
             }
         }
-        
-        for (int i = 3; i >= 0; i--)
-        {
+
+        for (int i = 3; i >= 0; i--) {
             Input input = ioValidator.validateStringInput(io.askJournal());
-            if (input.isValid())
-            {
+            if (input.isValid()) {
                 ar.setJournal(input.getStringValue());
                 break;
-            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("cannot be empty, please try again. " + i + " attempts left");
+            } else {
                 io.printError("fail -> return to main menu");
                 return false;
             }
         }
-        
-        for (int i = 3; i >= 0; i--)
-        {
+
+        for (int i = 3; i >= 0; i--) {
             Input input = ioValidator.validateYearInput(io.askYear());
-            if (input.isValid())
-            {
+            if (input.isValid()) {
                 ar.setYear(Integer.toString(input.getIntegerValue()));
                 break;
-            } else if (i > 0) io.printError("not a year, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("not a year, please try again. " + i + " attempts left");
+            } else {
                 io.printError("fail -> return to main menu");
                 return false;
             }
         }
-        
-        for (int i = 3; i >= 0; i--)
-        {
+
+        for (int i = 3; i >= 0; i--) {
             Input input = ioValidator.validateStringInput(io.askVolume());
-            if (input.isValid())
-            {
+            if (input.isValid()) {
                 ar.setVolume(input.getStringValue());
                 break;
-            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("cannot be empty, please try again. " + i + " attempts left");
+            } else {
                 io.printError("fail -> return to main menu");
                 return false;
             }
         }
-        
-        
+
         // tähän kysely optionaalisista kentistä ja niiden lisäys
-        
         references.add(ar);
         filehandler.appendFile(filename, ar.toString(specialCharConverter));
-        
+
         return true;
     }
 
-    private ArticleReference readArticleAsEdit(ArticleReference ar_old)
-    {
+    private ArticleReference readArticleAsEdit(ArticleReference ar_old) {
         ArticleReference ar = new ArticleReference();
-            Input input = ioValidator.validateHeaderInput(references, io.askHeader());
+        Input input = ioValidator.validateHeaderInput(references, io.askHeader());
         String val = input.getStringValue();
 
-        if(!val.equals(""))
+        if (!val.equals("")) {
             ar.setHeading(val);
-        else
+        } else {
             ar.setHeading(ar_old.getHeading());
+        }
 
         input = ioValidator.validateStringInput(io.askAuthor());
         val = input.getStringValue();
-        if(!val.equals(""))
-                ar.setAuthor(input.getStringValue());
-        else
+        if (!val.equals("")) {
+            ar.setAuthor(input.getStringValue());
+        } else {
             ar.setAuthor(ar_old.getAuthor());
+        }
 
         input = ioValidator.validateStringInput(io.askTitle());
         val = input.getStringValue();
-        if(!val.equals(""))
-                ar.setTitle(input.getStringValue());
-        else
-                ar.setTitle(ar_old.getTitle());
+        if (!val.equals("")) {
+            ar.setTitle(input.getStringValue());
+        } else {
+            ar.setTitle(ar_old.getTitle());
+        }
 
-
-       input = ioValidator.validateStringInput(io.askJournal());
+        input = ioValidator.validateStringInput(io.askJournal());
         val = input.getStringValue();
-        if(!val.equals(""))
-                ar.setJournal(input.getStringValue());
-        else
-                ar.setJournal(ar_old.getJournal());
+        if (!val.equals("")) {
+            ar.setJournal(input.getStringValue());
+        } else {
+            ar.setJournal(ar_old.getJournal());
+        }
 
         input = ioValidator.validateStringInput(io.askYear());
         val = input.getStringValue();
 
-        if(!val.equals(""))
+        if (!val.equals("")) {
             ar.setYear(val);
-        else
+        } else {
             ar.setYear(ar_old.getYear());
+        }
 
         input = ioValidator.validateStringInput(io.askVolume());
         val = input.getStringValue();
-        if(!val.equals(""))
-                ar.setVolume(input.getStringValue());
-        else
-                ar.setVolume(ar_old.getVolume());
+        if (!val.equals("")) {
+            ar.setVolume(input.getStringValue());
+        } else {
+            ar.setVolume(ar_old.getVolume());
+        }
         return ar;
     }
 
     /**
-     * asks information for book type reference through console IO.
-     * gives three attempts for each, and after three fails returns failure.
+     * asks information for book type reference through console IO. gives three
+     * attempts for each, and after three fails returns failure.
+     *
      * @return if book type reference was created successfully.
      */
-    private boolean readBook()
-    {
+    private boolean readBook() {
         BookReference br = new BookReference();
-        for (int i = 3; i >= 0; i--)
-        {
+        for (int i = 3; i >= 0; i--) {
             Input input = ioValidator.validateHeaderInput(references, io.askHeader());
-            if (input.isValid())
-            {
+            if (input.isValid()) {
                 br.setHeading(input.getStringValue());
                 break;
-            } else if (i > 0) io.printError("cannot be empty or header already exists, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("cannot be empty or header already exists, please try again. " + i + " attempts left");
+            } else {
                 io.printError("fail -> return to main menu");
                 return false;
             }
         }
-        
-        for (int i = 3; i >= 0; i--)
-        {
+
+        for (int i = 3; i >= 0; i--) {
             Input input = ioValidator.validateStringInput(io.askAuthor());
-            if (input.isValid())
-            {
+            if (input.isValid()) {
                 br.setAuthor(input.getStringValue());
                 break;
-            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("cannot be empty, please try again. " + i + " attempts left");
+            } else {
                 io.printError("fail -> return to main menu");
                 return false;
             }
         }
-        
-        for (int i = 3; i >= 0; i--)
-        {
+
+        for (int i = 3; i >= 0; i--) {
             Input input = ioValidator.validateStringInput(io.askTitle());
-            if (input.isValid())
-            {
+            if (input.isValid()) {
                 br.setTitle(input.getStringValue());
                 break;
-            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("cannot be empty, please try again. " + i + " attempts left");
+            } else {
                 io.printError("fail -> return to main menu");
                 return false;
             }
         }
-        
-        for (int i = 3; i >= 0; i--)
-        {
+
+        for (int i = 3; i >= 0; i--) {
             Input input = ioValidator.validateStringInput(io.askPublisher());
-            if (input.isValid())
-            {
+            if (input.isValid()) {
                 br.setPublisher(input.getStringValue());
                 break;
-            } else if (i > 0) io.printError("cannot be empty, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("cannot be empty, please try again. " + i + " attempts left");
+            } else {
                 io.printError("fail -> return to main menu");
                 return false;
             }
         }
-        
-        for (int i = 3; i >= 0; i--)
-        {
+
+        for (int i = 3; i >= 0; i--) {
             Input input = ioValidator.validateYearInput(io.askYear());
-            if (input.isValid())
-            {
+            if (input.isValid()) {
                 br.setYear(Integer.toString(input.getIntegerValue()));
                 break;
-            } else if (i > 0) io.printError("not a year, please try again. "+i+" attempts left");
-            else
-            {
+            } else if (i > 0) {
+                io.printError("not a year, please try again. " + i + " attempts left");
+            } else {
                 io.printError("fail -> return to main menu");
                 return false;
             }
         }
-        
-        
+
         // tähän kysely optionaalisista kentistä ja niiden lisäys
-        
         references.add(br);
         filehandler.appendFile(filename, br.toString(specialCharConverter));
-        
+
         return true;
     }
 
-    private BookReference readBookAsEdit(BookReference br_old)
-    {
+    private BookReference readBookAsEdit(BookReference br_old) {
         BookReference br = new BookReference();
         Input input = ioValidator.validateHeaderInput(references, io.askHeader());
         String val = input.getStringValue();
 
-        if(!val.equals(""))
+        if (!val.equals("")) {
             br.setHeading(val);
-        else
+        } else {
             br.setHeading(br_old.getHeading());
-
+        }
 
         input = ioValidator.validateStringInput(io.askAuthor());
         val = input.getStringValue();
 
-        if(!val.equals(""))
-                br.setAuthor(input.getStringValue());
-        else
+        if (!val.equals("")) {
+            br.setAuthor(input.getStringValue());
+        } else {
             br.setAuthor(br_old.getAuthor());
+        }
 
         input = ioValidator.validateStringInput(io.askTitle());
         val = input.getStringValue();
 
-        if(!val.equals(""))
-                br.setTitle(input.getStringValue());
-        else
+        if (!val.equals("")) {
+            br.setTitle(input.getStringValue());
+        } else {
             br.setTitle(br_old.getTitle());
+        }
 
         input = ioValidator.validateStringInput(io.askPublisher());
         val = input.getStringValue();
 
-        if(!val.equals(""))
+        if (!val.equals("")) {
             br.setPublisher(input.getStringValue());
-        else
+        } else {
             br.setPublisher(br_old.getPublisher());
+        }
 
         input = ioValidator.validateStringInput(io.askYear());
         val = input.getStringValue();
 
-        if(!val.equals(""))
-                br.setYear(val);
-        else
-                br.setYear(br_old.getYear());
+        if (!val.equals("")) {
+            br.setYear(val);
+        } else {
+            br.setYear(br_old.getYear());
+        }
 
         return br;
     }
