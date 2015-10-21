@@ -22,7 +22,7 @@ import ohtu.miniprojekti5000.logic.SpecialCharConverter;
  */
 public class FileHandler {
 
-    private final Pattern fieldPattern = Pattern.compile("([a-zA-Z]+)(\\s)*=(\\s)*\"(\\s)*([a-zA-Z]+)(\\s)*\"(\\s)*(,?)");
+    private final Pattern fieldPattern = Pattern.compile("([a-zA-Z]+)(\\s)*=(\\s)*\"(\\s)*([a-zA-Z0-9~@#$^*()_+=,.?!%&': -]+)(\\s)*\"(\\s)*(,?)");
 
     private ArrayList<String> btx;
 

@@ -157,4 +157,12 @@ public class ArticleReference implements ReferenceInterface  {
                 + "}\n";
 
     }
+    @Override
+     public String userFriendlyBibtex() {
+        return getAuthor() + ". "
+                + getTitle() + ". "
+                + getJournal() + ". "
+                + getVolume() + ", "
+                + getYear() + ".\n";
+    }
 }

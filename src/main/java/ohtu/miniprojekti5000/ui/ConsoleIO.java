@@ -45,7 +45,11 @@ public class ConsoleIO implements IO {
     public void printReferencesWithIds(List<ReferenceInterface> references) {
         Integer i = 1;
         for (ReferenceInterface ref : references) {
+<<<<<<< HEAD
             System.out.println(i + ": " + ref.toString(specialCharConverter));
+=======
+            System.out.println(i + ": " + ref.userFriendlyBibtex());
+>>>>>>> d1e6371756f26a2f7f5647301812fd3870c5bd75
 
             i++;
         }

@@ -91,6 +91,14 @@ public class BookReference implements ReferenceInterface {
                 + "}\n";
 
     }
+    @Override
+    public String userFriendlyBibtex() {
+        return getAuthor() + ". "
+                + getTitle() + ". "
+                + getPublisher() + ", "
+                + getYear() + ".\n";
+    }
+    
 
     private void setOptionalField(String fieldName, String fieldValue) {
         if(!fieldValue.isEmpty())

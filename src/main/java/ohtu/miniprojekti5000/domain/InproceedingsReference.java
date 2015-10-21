@@ -98,6 +98,13 @@ public class InproceedingsReference implements ReferenceInterface {
                 + "}\n";
 
     }
+    @Override
+     public String userFriendlyBibtex() {
+        return getAuthor() + ". "
+                + getTitle() + ". "
+                + getBookTitle() + ". "
+                + getYear() + ".\n";
+    }
 
     private void setOptionalField(String fieldName, String fieldValue) {
         if(!fieldValue.isEmpty())
