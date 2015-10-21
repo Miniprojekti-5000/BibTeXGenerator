@@ -93,7 +93,7 @@ public class BookReference implements ReferenceInterface {
     }
     @Override
     public String userFriendlyBibtex() {
-        return "\n" + getAuthor() + ". "
+        return getAuthor() + ". "
                 + getTitle() + ". "
                 + getPublisher() + ", "
                 + getYear() + ".\n";
